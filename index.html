@@ -1,0 +1,2216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GRIMOIRE // ARCANE POWERSCALING CODEX</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Cinzel+Decorative:wght@700;900&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-void: #0b0807;
+        --bg-leather: #140e0c;
+        --bg-parchment: #1b1310;
+        --bg-inset: #0e0a08;
+        --gold-leaf: #d4af37;
+        --gold-bright: #f5d76e;
+        --gold-dim: rgba(212, 175, 55, 0.28);
+        --crimson-seal: #8b1e24;
+        --crimson-glow: #c82832;
+        --text-parchment: #efe5d5;
+        --text-sepia: #a8947a;
+        --border-ornate: rgba(212, 175, 55, 0.42);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: var(--bg-void);
+        color: var(--text-parchment);
+        font-family: "Crimson Pro", Georgia, serif;
+        min-height: 100vh;
+        overflow-x: hidden;
+        background-image:
+          radial-gradient(
+            circle at 50% 0%,
+            rgba(212, 175, 55, 0.12) 0%,
+            transparent 65%
+          ),
+          radial-gradient(
+            circle at 15% 85%,
+            rgba(139, 30, 36, 0.14) 0%,
+            transparent 50%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            rgba(212, 175, 55, 0.015) 0px,
+            rgba(212, 175, 55, 0.015) 2px,
+            transparent 2px,
+            transparent 12px
+          );
+      }
+
+      .tome-frame {
+        background: linear-gradient(
+          180deg,
+          var(--bg-parchment) 0%,
+          var(--bg-leather) 100%
+        );
+        border: 1px solid var(--border-ornate);
+        box-shadow:
+          0 12px 35px rgba(0, 0, 0, 0.75),
+          inset 0 0 0 4px var(--bg-inset),
+          inset 0 0 0 5px rgba(212, 175, 55, 0.22);
+        position: relative;
+      }
+
+      header {
+        border-bottom: 2px solid var(--border-ornate);
+        background: linear-gradient(180deg, #160f0d 0%, #0d0908 100%);
+        padding: 16px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .arcane-crest {
+        width: 40px;
+        height: 40px;
+        border: 2px solid var(--gold-leaf);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(
+          circle,
+          rgba(212, 175, 55, 0.25),
+          transparent
+        );
+        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        font-family: "Cinzel Decorative", serif;
+        color: var(--gold-bright);
+        font-weight: 900;
+        font-size: 1.1rem;
+      }
+
+      .brand-title {
+        font-family: "Cinzel Decorative", serif;
+        font-weight: 900;
+        font-size: 1.35rem;
+        letter-spacing: 2px;
+        color: var(--gold-bright);
+        text-shadow: 0 2px 10px rgba(212, 175, 55, 0.35);
+      }
+
+      .brand-sub {
+        font-family: "Cinzel", serif;
+        font-size: 0.72rem;
+        color: var(--text-sepia);
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .status-pill {
+        font-family: "Cinzel", serif;
+        font-size: 0.74rem;
+        font-weight: 700;
+        padding: 6px 14px;
+        background: rgba(212, 175, 55, 0.08);
+        border: 1px solid var(--gold-leaf);
+        color: var(--gold-bright);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: 1px;
+      }
+
+      .status-rune {
+        color: var(--gold-bright);
+        animation: glowRune 2s infinite ease-in-out;
+      }
+
+      @keyframes glowRune {
+        0%,
+        100% {
+          opacity: 1;
+          text-shadow: 0 0 8px var(--gold-bright);
+        }
+        50% {
+          opacity: 0.35;
+        }
+      }
+
+      .btn-arcane {
+        background: linear-gradient(180deg, #a6242b 0%, #6e1419 100%);
+        color: var(--gold-bright);
+        border: 1px solid var(--gold-leaf);
+        padding: 10px 20px;
+        font-family: "Cinzel", serif;
+        font-weight: 800;
+        font-size: 0.82rem;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+        box-shadow:
+          0 4px 14px rgba(0, 0, 0, 0.6),
+          inset 0 0 10px rgba(212, 175, 55, 0.2);
+      }
+
+      .btn-arcane:hover {
+        background: linear-gradient(180deg, #c82832 0%, #8b1e24 100%);
+        color: #fff;
+        border-color: var(--gold-bright);
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+        transform: translateY(-1px);
+      }
+
+      .btn-parchment {
+        background: rgba(212, 175, 55, 0.06);
+        color: var(--text-sepia);
+        border: 1px solid rgba(212, 175, 55, 0.35);
+        padding: 8px 14px;
+        font-family: "Cinzel", serif;
+        font-size: 0.74rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .btn-parchment:hover {
+        border-color: var(--gold-bright);
+        color: var(--gold-bright);
+        background: rgba(212, 175, 55, 0.14);
+      }
+
+      /* API Login Overlay */
+      #login-screen {
+        max-width: 780px;
+        margin: 48px auto;
+        padding: 0 20px;
+      }
+
+      .login-card {
+        padding: 42px 38px;
+      }
+
+      .seal-ribbon {
+        text-align: center;
+        font-family: "Cinzel", serif;
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        color: var(--gold-leaf);
+        margin-bottom: 10px;
+      }
+
+      .login-title {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.9rem;
+        font-weight: 900;
+        text-align: center;
+        color: var(--gold-bright);
+        margin-bottom: 12px;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+      }
+
+      .ornate-divider {
+        text-align: center;
+        color: var(--gold-leaf);
+        letter-spacing: 8px;
+        margin: 12px 0 20px;
+        font-size: 0.9rem;
+        opacity: 0.75;
+      }
+
+      .login-desc {
+        color: var(--text-parchment);
+        line-height: 1.65;
+        margin-bottom: 24px;
+        font-size: 1.08rem;
+        text-align: center;
+      }
+
+      .steps-box {
+        background: var(--bg-inset);
+        border: 1px solid rgba(212, 175, 55, 0.28);
+        border-left: 3px solid var(--gold-leaf);
+        padding: 20px 24px;
+        margin-bottom: 26px;
+      }
+
+      .steps-box h3 {
+        font-family: "Cinzel", serif;
+        font-size: 0.92rem;
+        color: var(--gold-bright);
+        margin-bottom: 14px;
+        letter-spacing: 1.5px;
+      }
+
+      .steps-list {
+        list-style: none;
+        counter-reset: step-counter;
+      }
+
+      .steps-list li {
+        counter-increment: step-counter;
+        margin-bottom: 11px;
+        font-size: 1.02rem;
+        color: #e6dac6;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        line-height: 1.5;
+      }
+
+      .steps-list li::before {
+        content: "I." counter(step-counter, upper-roman);
+        font-family: "Cinzel", serif;
+        font-size: 0.72rem;
+        font-weight: 800;
+        background: var(--crimson-seal);
+        border: 1px solid var(--gold-leaf);
+        color: var(--gold-bright);
+        padding: 2px 8px;
+        margin-top: 2px;
+        flex-shrink: 0;
+      }
+
+      .steps-list a {
+        color: var(--gold-bright);
+        text-decoration: underline;
+        font-weight: 700;
+      }
+
+      .input-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .arcane-input {
+        flex: 1;
+        min-width: 240px;
+        background: var(--bg-inset);
+        border: 1px solid var(--border-ornate);
+        color: var(--text-parchment);
+        padding: 13px 16px;
+        font-family: "Crimson Pro", serif;
+        font-size: 1.05rem;
+        outline: none;
+        transition: 0.2s;
+      }
+
+      .arcane-input:focus {
+        border-color: var(--gold-bright);
+        box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
+      }
+
+      .arcane-input-sm {
+        flex: 1;
+        min-width: 200px;
+        background: var(--bg-inset);
+        border: 1px solid rgba(212, 175, 55, 0.45);
+        color: var(--text-parchment);
+        padding: 9px 14px;
+        font-family: "Crimson Pro", serif;
+        font-size: 0.98rem;
+        outline: none;
+        transition: 0.2s;
+      }
+
+      .arcane-input-sm:focus {
+        border-color: var(--gold-bright);
+        box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
+      }
+
+      .model-select-row {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-family: "Cinzel", serif;
+        font-size: 0.78rem;
+        color: var(--text-sepia);
+      }
+
+      .arcane-select {
+        background: var(--bg-inset);
+        color: var(--gold-bright);
+        border: 1px solid var(--border-ornate);
+        padding: 6px 12px;
+        font-family: "Cinzel", serif;
+        font-size: 0.78rem;
+      }
+
+      /* Main Workspace */
+      #app-workspace {
+        display: none;
+        max-width: 1380px;
+        margin: 28px auto;
+        padding: 0 24px 60px;
+      }
+
+      .scanner-bar {
+        padding: 24px 28px;
+        margin-bottom: 26px;
+      }
+
+      .scanner-label {
+        font-family: "Cinzel", serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--gold-bright);
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+        display: block;
+      }
+
+      .search-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .quick-presets {
+        margin-top: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        font-family: "Cinzel", serif;
+        font-size: 0.76rem;
+        color: var(--text-sepia);
+      }
+
+      .preset-chip {
+        background: rgba(212, 175, 55, 0.08);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        color: var(--text-parchment);
+        padding: 4px 11px;
+        font-family: "Crimson Pro", serif;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: 0.15s;
+      }
+
+      .preset-chip:hover {
+        background: var(--crimson-seal);
+        border-color: var(--gold-bright);
+        color: var(--gold-bright);
+      }
+
+      /* Loading & Disambiguation */
+      #loader-box {
+        display: none;
+        text-align: center;
+        padding: 52px 20px;
+        margin-bottom: 26px;
+      }
+
+      .magic-circle-spinner {
+        width: 62px;
+        height: 62px;
+        margin: 0 auto 18px;
+        border: 2px solid rgba(212, 175, 55, 0.2);
+        border-top: 2px solid var(--gold-bright);
+        border-bottom: 2px solid var(--crimson-glow);
+        border-radius: 50%;
+        animation: spin 1.1s linear infinite;
+        box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      #disambiguation-box {
+        display: none;
+        padding: 28px;
+        margin-bottom: 26px;
+        border-color: var(--gold-bright);
+      }
+
+      .disambig-header {
+        font-family: "Cinzel Decorative", serif;
+        color: var(--gold-bright);
+        font-size: 1.2rem;
+        margin-bottom: 6px;
+        letter-spacing: 1px;
+      }
+
+      .disambig-sub {
+        color: var(--text-sepia);
+        font-size: 1rem;
+        margin-bottom: 18px;
+      }
+
+      .candidates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 14px;
+      }
+
+      .candidate-card {
+        background: var(--bg-inset);
+        border: 1px solid var(--border-ornate);
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        position: relative;
+      }
+
+      .candidate-card:hover {
+        border-color: var(--gold-bright);
+        background: rgba(139, 30, 36, 0.25);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      }
+
+      .cand-rank {
+        font-family: "Cinzel", serif;
+        font-size: 0.65rem;
+        color: var(--gold-leaf);
+        letter-spacing: 1.5px;
+        margin-bottom: 4px;
+      }
+
+      .cand-name {
+        font-family: "Cinzel", serif;
+        font-weight: 800;
+        font-size: 1.05rem;
+        color: var(--gold-bright);
+        margin-bottom: 4px;
+      }
+
+      .cand-verse {
+        font-family: "Cinzel", serif;
+        font-size: 0.74rem;
+        color: #d48c8c;
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+      }
+
+      .cand-desc {
+        font-size: 0.95rem;
+        color: var(--text-parchment);
+        line-height: 1.4;
+      }
+
+      /* Custom Variation Mini Search Bar inside Disambiguation */
+      .custom-variant-box {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px dashed rgba(212, 175, 55, 0.32);
+      }
+
+      .custom-variant-label {
+        font-family: "Cinzel", serif;
+        font-size: 0.72rem;
+        color: var(--gold-bright);
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .custom-variant-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      /* Stat Sheet Dashboard */
+      #stat-sheet {
+        display: none;
+        animation: fadeIn 0.45s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .sheet-grid {
+        display: grid;
+        grid-template-columns: 345px 1fr 365px;
+        gap: 24px;
+        align-items: start;
+      }
+
+      @media (max-width: 1120px) {
+        .sheet-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .tier-column {
+          grid-column: span 2;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .sheet-grid {
+          grid-template-columns: 1fr;
+        }
+        .tier-column {
+          grid-column: span 1;
+        }
+      }
+
+      .panel-box {
+        padding: 24px;
+      }
+
+      .panel-tag {
+        font-family: "Cinzel", serif;
+        font-size: 0.74rem;
+        font-weight: 700;
+        color: var(--gold-bright);
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+        padding-bottom: 7px;
+      }
+
+      /* Left Column: Portrait & Wax-Seal Tier Badge */
+      .portrait-frame {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        background: var(--bg-inset);
+        border: 2px solid var(--gold-leaf);
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9);
+      }
+
+      .portrait-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      .portrait-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(11, 8, 7, 0.96) 0%,
+          transparent 45%
+        );
+        pointer-events: none;
+      }
+
+      .portrait-caption {
+        position: absolute;
+        bottom: 14px;
+        left: 16px;
+        right: 16px;
+      }
+
+      .char-verse-tag {
+        font-family: "Cinzel", serif;
+        font-size: 0.72rem;
+        color: var(--gold-leaf);
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+
+      .char-display-name {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 1.4rem;
+        font-weight: 900;
+        line-height: 1.2;
+        color: #fff;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+      }
+
+      .portrait-source-note {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.68rem;
+        color: var(--text-sepia);
+        text-align: center;
+        margin-bottom: 8px;
+      }
+
+      .alt-portraits-row {
+        display: none;
+        gap: 6px;
+        margin-bottom: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .alt-thumb {
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
+        object-position: top;
+        border: 1px solid var(--border-ornate);
+        cursor: pointer;
+        opacity: 0.7;
+        transition: 0.15s;
+      }
+
+      .alt-thumb:hover,
+      .alt-thumb.selected {
+        opacity: 1;
+        border-color: var(--gold-bright);
+        transform: scale(1.06);
+      }
+
+      .custom-img-bar {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 18px;
+      }
+
+      .custom-img-bar input {
+        flex: 1;
+        background: var(--bg-inset);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        color: var(--text-parchment);
+        padding: 6px 10px;
+        font-family: "Crimson Pro", serif;
+        font-size: 0.9rem;
+      }
+
+      .tier-seal-box {
+        background: radial-gradient(
+          circle at center,
+          rgba(139, 30, 36, 0.45) 0%,
+          rgba(14, 10, 8, 0.95) 100%
+        );
+        border: 2px solid var(--gold-leaf);
+        padding: 18px 14px;
+        text-align: center;
+        box-shadow: inset 0 0 22px rgba(212, 175, 55, 0.18);
+      }
+
+      .tier-seal-label {
+        font-family: "Cinzel", serif;
+        font-size: 0.72rem;
+        color: var(--gold-leaf);
+        letter-spacing: 2.5px;
+      }
+
+      .tier-seal-code {
+        font-family: "Cinzel Decorative", serif;
+        font-size: 2.15rem;
+        font-weight: 900;
+        color: var(--gold-bright);
+        text-shadow: 0 2px 15px rgba(212, 175, 55, 0.45);
+        margin: 4px 0;
+      }
+
+      .tier-seal-title {
+        font-family: "Cinzel", serif;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--text-parchment);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* Center Column: Arcane Astrolabe Radar, Reasoning & Grimoire Spells/Abilities */
+      .radar-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 410px;
+        margin: 0 auto 16px;
+        aspect-ratio: 1 / 1;
+      }
+
+      .stat-pills-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 22px;
+      }
+
+      .stat-mini {
+        background: var(--bg-inset);
+        border: 1px solid rgba(212, 175, 55, 0.25);
+        padding: 8px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .stat-mini-name {
+        font-family: "Cinzel", serif;
+        font-size: 0.68rem;
+        color: var(--text-sepia);
+        letter-spacing: 0.5px;
+      }
+
+      .stat-mini-val {
+        font-family: "Cinzel Decorative", serif;
+        font-weight: 900;
+        font-size: 0.95rem;
+        color: var(--gold-bright);
+      }
+
+      .reasoning-box {
+        background: var(--bg-inset);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        border-left: 3px solid var(--gold-leaf);
+        padding: 18px;
+        margin-bottom: 18px;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        color: var(--text-parchment);
+      }
+
+      .audit-box {
+        background: rgba(139, 30, 36, 0.14);
+        border: 1px solid rgba(212, 175, 55, 0.3);
+        border-left: 3px solid var(--crimson-glow);
+        padding: 14px 16px;
+        margin-bottom: 22px;
+        font-size: 0.96rem;
+        line-height: 1.55;
+        color: #e6d5c1;
+      }
+
+      .audit-box strong {
+        font-family: "Cinzel", serif;
+        font-size: 0.78rem;
+        color: var(--gold-bright);
+        letter-spacing: 1px;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .abilities-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .ability-tag {
+        background: rgba(139, 30, 36, 0.22);
+        border: 1px solid rgba(212, 175, 55, 0.38);
+        padding: 6px 13px;
+        font-size: 0.95rem;
+        color: var(--text-parchment);
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .ability-tag span {
+        color: var(--gold-bright);
+        font-size: 0.8rem;
+      }
+
+      .feats-list {
+        margin-top: 14px;
+        list-style: none;
+      }
+
+      .feats-list li {
+        padding: 10px 14px;
+        background: var(--bg-inset);
+        border-left: 2px solid var(--crimson-glow);
+        margin-bottom: 8px;
+        font-size: 0.98rem;
+        line-height: 1.5;
+        color: #e8dcc8;
+      }
+
+      /* Right Column: Full VS Battles Wiki Tier Hierarchy */
+      .tier-scale-container {
+        max-height: 840px;
+        overflow-y: auto;
+        padding-right: 6px;
+      }
+
+      .tier-scale-container::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      .tier-scale-container::-webkit-scrollbar-thumb {
+        background: var(--gold-leaf);
+      }
+
+      .tier-group {
+        margin-bottom: 12px;
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        background: var(--bg-inset);
+      }
+
+      .tier-group-header {
+        background: rgba(212, 175, 55, 0.12);
+        padding: 7px 11px;
+        font-family: "Cinzel", serif;
+        font-size: 0.76rem;
+        font-weight: 800;
+        color: var(--gold-bright);
+        letter-spacing: 1px;
+      }
+
+      .tier-item {
+        padding: 6px 11px;
+        font-family: "Crimson Pro", serif;
+        font-size: 0.92rem;
+        color: var(--text-sepia);
+        border-top: 1px solid rgba(212, 175, 55, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.2s;
+      }
+
+      .tier-item strong {
+        font-family: "Cinzel", serif;
+        font-size: 0.78rem;
+        color: #cbb89d;
+      }
+
+      .tier-item.active-tier {
+        background: linear-gradient(
+          90deg,
+          var(--crimson-seal),
+          rgba(212, 175, 55, 0.25)
+        );
+        color: #fff;
+        font-weight: 700;
+        border-left: 4px solid var(--gold-bright);
+        box-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
+      }
+
+      .tier-item.active-tier strong {
+        color: var(--gold-bright);
+      }
+
+      .tier-item.active-tier::after {
+        content: "✦ INSCRIBED";
+        font-family: "Cinzel", serif;
+        font-size: 0.62rem;
+        background: var(--gold-bright);
+        color: var(--bg-void);
+        padding: 2px 6px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+      }
+
+      .error-banner {
+        display: none;
+        background: rgba(139, 30, 36, 0.28);
+        border: 1px solid var(--crimson-glow);
+        color: #ffb3b8;
+        padding: 14px 18px;
+        margin-bottom: 20px;
+        font-family: "Crimson Pro", serif;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <div class="arcane-crest">✦</div>
+        <div>
+          <div class="brand-title">GRIMOIRE // VS-CODEX</div>
+          <div class="brand-sub">
+            ARCANE POWERSCALING & TIER INSCRIPTION TOME
+          </div>
+        </div>
+      </div>
+      <div class="header-actions" id="header-controls" style="display: none">
+        <div class="status-pill">
+          <span class="status-rune">❖</span>
+          <span id="active-model-badge">ORACLE BOUND</span>
+        </div>
+        <button class="btn-parchment" onclick="logoutKey()">
+          CHANGE API KEY
+        </button>
+      </div>
+    </header>
+
+    <!-- LOGIN / API KEY GATE -->
+    <section id="login-screen">
+      <div class="login-card tome-frame">
+        <div class="seal-ribbon">✦ SEALED ARCHIVE // INVOCATION REQUIRED ✦</div>
+        <h1 class="login-title">UNSEAL THE GRIMOIRE</h1>
+        <div class="ornate-divider">❖ ─── ✦ ─── ❖</div>
+        <p class="login-desc">
+          This standalone Arcane Codex binds directly from your browser to
+          Google's Gemini Oracle to divine fictional entities, resolve shared
+          names or top-5 canonical versions across realms, chart their 6-axis
+          astral parameters, and rank them strictly by verified feats and energy
+          output.
+        </p>
+
+        <div class="steps-box">
+          <h3>HOW TO OBTAIN YOUR FREE GEMINI API KEY (STEP-BY-STEP)</h3>
+          <ol class="steps-list">
+            <li>
+              Open
+              <a
+                href="https://aistudio.google.com/app/apikey"
+                target="_blank"
+                rel="noopener"
+                >Google AI Studio (aistudio.google.com)</a
+              >
+              and sign in with your standard Google account.
+            </li>
+            <li>
+              Accept the Terms of Service on your first visit—Google AI Studio
+              will automatically conjure a free project for you.
+            </li>
+            <li>
+              Click <strong>"Create API key"</strong> (or copy the
+              auto-generated key displayed on the
+              <strong>API Keys</strong> page). No credit card is required for
+              the free tier.
+            </li>
+            <li>
+              Inscribe that key (starts with <code>AIza...</code>) into the
+              cipher field below. Your key remains sealed locally inside your
+              browser.
+            </li>
+          </ol>
+        </div>
+
+        <div id="login-error" class="error-banner"></div>
+
+        <div class="input-group">
+          <input
+            type="password"
+            id="api-key-input"
+            class="arcane-input"
+            placeholder="Inscribe your Gemini API Key here (AIzaSy...)"
+          />
+          <button class="btn-arcane" onclick="saveAndLogin()">
+            UNSEAL TOME
+          </button>
+        </div>
+
+        <div class="model-select-row">
+          <span>ORACLE CONDUIT:</span>
+          <select id="model-select" class="arcane-select">
+            <option value="gemini-2.5-flash" selected>
+              gemini-2.5-flash (Swift Divination)
+            </option>
+            <option value="gemini-2.5-pro">
+              gemini-2.5-pro (Deep Arcane Analysis)
+            </option>
+            <option value="gemini-2.0-flash">
+              gemini-2.0-flash (Fallback Conduit)
+            </option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN APPLICATION WORKSPACE -->
+    <main id="app-workspace">
+      <div class="scanner-bar tome-frame">
+        <label class="scanner-label" for="char-search-input"
+          >✦ DIVINATION QUERY — INSCRIBE FICTIONAL ENTITY OR VERSION</label
+        >
+        <div class="search-row">
+          <input
+            type="text"
+            id="char-search-input"
+            class="arcane-input"
+            placeholder="e.g., Superman, Asta, Dante, Batman, Son Goku, Rimuru Tempest..."
+            onkeydown="if (event.key === 'Enter') initiateScan();"
+          />
+          <button class="btn-arcane" onclick="initiateScan()">
+            DIVINE & RANK
+          </button>
+        </div>
+        <div class="quick-presets">
+          <span>CHRONICLE SUBJECTS:</span>
+          <button class="preset-chip" onclick="quickSearch('Superman')">
+            Superman (Top 5 Versions)
+          </button>
+          <button
+            class="preset-chip"
+            onclick="quickSearch('Asta (Black Clover)')"
+          >
+            Asta
+          </button>
+          <button class="preset-chip" onclick="quickSearch('Dante')">
+            Dante (Ambiguous Test)
+          </button>
+          <button
+            class="preset-chip"
+            onclick="quickSearch('Batman (DC Comics)')"
+          >
+            Batman
+          </button>
+          <button
+            class="preset-chip"
+            onclick="quickSearch('Son Goku (Dragon Ball Super)')"
+          >
+            Son Goku
+          </button>
+        </div>
+      </div>
+
+      <div id="app-error" class="error-banner"></div>
+
+      <!-- LOADER -->
+      <div id="loader-box" class="tome-frame">
+        <div class="magic-circle-spinner"></div>
+        <div
+          id="loader-text"
+          style="
+            font-family: &quot;Cinzel&quot;, serif;
+            letter-spacing: 2px;
+            color: var(--gold-bright);
+          "
+        >
+          CONSULTING THE ASTRAL ARCHIVES...
+        </div>
+      </div>
+
+      <!-- DISAMBIGUATION / TOP-5 VERSIONS PANEL -->
+      <div id="disambiguation-box" class="tome-frame">
+        <div class="disambig-header" id="disambig-title">
+          ⚠ MULTIPLE VERSIONS / ENTITIES DETECTED
+        </div>
+        <div class="disambig-sub" id="disambig-prompt">
+          Select one of the top 5 most prominent versions/entities below, or
+          search a specific variation:
+        </div>
+        <div class="candidates-grid" id="candidates-grid"></div>
+
+        <div class="custom-variant-box">
+          <label class="custom-variant-label" for="custom-variant-input"
+            >✦ NOT LISTED? SEEK A SPECIFIC VERSION, ERA, OR CONTINUITY</label
+          >
+          <div class="custom-variant-row">
+            <input
+              type="text"
+              id="custom-variant-input"
+              class="arcane-input-sm"
+              placeholder="e.g., Cosmic Armor Superman, All-Star Superman, Kingdom Come..."
+              onkeydown="if (event.key === 'Enter') searchCustomVariation();"
+            />
+            <button class="btn-parchment" onclick="searchCustomVariation()">
+              SEEK VARIATION
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHARACTER STAT SHEET -->
+      <div id="stat-sheet">
+        <div class="sheet-grid">
+          <!-- LEFT COLUMN: PORTRAIT & WAX-SEAL TIER BADGE -->
+          <div class="panel-box tome-frame">
+            <div class="panel-tag">
+              <span>ILLUMINATED PORTRAIT</span>
+              <span id="subject-id-tag">FOLIO #I</span>
+            </div>
+
+            <div class="portrait-frame">
+              <img id="char-image" src="" alt="Character Portrait" />
+              <div class="portrait-overlay"></div>
+              <div class="portrait-caption">
+                <div class="char-verse-tag" id="char-franchise">
+                  REALM / FRANCHISE
+                </div>
+                <div class="char-display-name" id="char-name">ENTITY NAME</div>
+              </div>
+            </div>
+
+            <div class="portrait-source-note" id="portrait-source-note">
+              SOURCE: VERIFYING...
+            </div>
+            <div
+              class="alt-portraits-row"
+              id="alt-portraits-row"
+              title="Click to switch verified portrait"
+            ></div>
+
+            <div class="custom-img-bar">
+              <input
+                type="text"
+                id="custom-img-url"
+                placeholder="Override portrait image URL..."
+              />
+              <button class="btn-parchment" onclick="applyCustomImage()">
+                BIND
+              </button>
+            </div>
+
+            <div class="tier-seal-box">
+              <div class="tier-seal-label">VS WIKI INSCRIBED TIER</div>
+              <div class="tier-seal-code" id="hero-tier-code">TIER 9-B</div>
+              <div class="tier-seal-title" id="hero-tier-name">Wall level</div>
+            </div>
+          </div>
+
+          <!-- CENTER COLUMN: RADAR CHART, ABILITIES & REASONING -->
+          <div class="panel-box tome-frame">
+            <div class="panel-tag">
+              <span>ASTRAL PARAMETER ASTROLABE</span>
+              <span>RELATIVE TIER INDEX (0–100)</span>
+            </div>
+
+            <div class="radar-wrapper">
+              <canvas id="radarChart"></canvas>
+            </div>
+
+            <div class="stat-pills-grid" id="stat-pills-grid"></div>
+
+            <div class="panel-tag" style="margin-top: 10px">
+              <span>EMPIRICAL SCALING & TIER JUSTIFICATION</span>
+            </div>
+            <div class="reasoning-box" id="scaling-reasoning"></div>
+
+            <div class="audit-box" id="audit-box">
+              <strong>✦ ANTI-FALLACY & HAX SEPARATION AUDIT</strong>
+              <span id="audit-text"></span>
+            </div>
+
+            <div class="panel-tag">
+              <span>RECORDED FEATS & DIRECT ENERGY ANCHORS</span>
+            </div>
+            <ul class="feats-list" id="feats-list"></ul>
+
+            <div class="panel-tag" style="margin-top: 20px">
+              <span>GRIMOIRE ABILITIES, SPELLS & HAX</span>
+            </div>
+            <div class="abilities-list" id="abilities-list"></div>
+          </div>
+
+          <!-- RIGHT COLUMN: COMPLETE VS BATTLES WIKI TIER HIERARCHY -->
+          <div class="panel-box tome-frame tier-column">
+            <div class="panel-tag">
+              <span>VS WIKI TIERING HIERARCHY</span>
+              <span>11-C ➔ 0</span>
+            </div>
+            <div class="tier-scale-container" id="tier-scale-list"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const VS_TIERS = [
+        {
+          group: "Tier 11: Infinitesimal",
+          tiers: [
+            { code: "11-C", name: "Low Hypoverse level" },
+            { code: "11-B", name: "Hypoverse level" },
+            { code: "11-A", name: "High Hypoverse level" },
+          ],
+        },
+        {
+          group: "Tier 10: Human",
+          tiers: [
+            { code: "10-C", name: "Below Average Human level" },
+            { code: "10-B", name: "Human level" },
+            { code: "10-A", name: "Athlete level" },
+          ],
+        },
+        {
+          group: "Tier 9: Superhuman",
+          tiers: [
+            { code: "9-C", name: "Street level" },
+            { code: "9-B", name: "Wall level" },
+            { code: "9-A", name: "Small Building level" },
+          ],
+        },
+        {
+          group: "Tier 8: Urban",
+          tiers: [
+            { code: "8-C", name: "Building level" },
+            { code: "High 8-C", name: "Large Building level" },
+            { code: "8-B", name: "City Block level" },
+            { code: "8-A", name: "Multi-City Block level" },
+          ],
+        },
+        {
+          group: "Tier 7: Nuclear",
+          tiers: [
+            { code: "Low 7-C", name: "Small Town level" },
+            { code: "7-C", name: "Town level" },
+            { code: "High 7-C", name: "Large Town level" },
+            { code: "Low 7-B", name: "Small City level" },
+            { code: "7-B", name: "City level" },
+            { code: "7-A", name: "Mountain level" },
+            { code: "High 7-A", name: "Large Mountain level" },
+          ],
+        },
+        {
+          group: "Tier 6: Tectonic",
+          tiers: [
+            { code: "6-C", name: "Island level" },
+            { code: "High 6-C", name: "Large Island level" },
+            { code: "Low 6-B", name: "Small Country level" },
+            { code: "6-B", name: "Country level" },
+            { code: "High 6-B", name: "Large Country level" },
+            { code: "6-A", name: "Continent level" },
+            { code: "High 6-A", name: "Multi-Continent level" },
+          ],
+        },
+        {
+          group: "Tier 5: Substellar",
+          tiers: [
+            { code: "5-C", name: "Moon level" },
+            { code: "Low 5-B", name: "Small Planet level" },
+            { code: "5-B", name: "Planet level" },
+            { code: "5-A", name: "Large Planet level" },
+            { code: "High 5-A", name: "Brown Dwarf level" },
+          ],
+        },
+        {
+          group: "Tier 4: Stellar",
+          tiers: [
+            { code: "Low 4-C", name: "Small Star level" },
+            { code: "4-C", name: "Star level" },
+            { code: "High 4-C", name: "Large Star level" },
+            { code: "4-B", name: "Solar System level" },
+            { code: "4-A", name: "Multi-Solar System level" },
+          ],
+        },
+        {
+          group: "Tier 3: Cosmic",
+          tiers: [
+            { code: "3-C", name: "Galaxy level" },
+            { code: "3-B", name: "Multi-Galaxy level" },
+            { code: "3-A", name: "Universe level" },
+            { code: "High 3-A", name: "High Universe level" },
+          ],
+        },
+        {
+          group: "Tier 2: Multiversal",
+          tiers: [
+            { code: "Low 2-C", name: "Universe level+" },
+            { code: "2-C", name: "Low Multiverse level" },
+            { code: "2-B", name: "Multiverse level" },
+            { code: "2-A", name: "Multiverse level+" },
+          ],
+        },
+        {
+          group: "Tier 1: Higher Infinity",
+          tiers: [
+            { code: "Low 1-C", name: "Low Complex Multiverse level" },
+            { code: "1-C", name: "Complex Multiverse level" },
+            { code: "High 1-C", name: "High Complex Multiverse level" },
+            { code: "1-B", name: "Hyperverse level" },
+            { code: "High 1-B", name: "High Hyperverse level" },
+            { code: "Low 1-A", name: "Low Outerverse level" },
+            { code: "1-A", name: "Outerverse level" },
+            { code: "High 1-A", name: "High Outerverse level" },
+          ],
+        },
+        {
+          group: "Tier 0: Boundless",
+          tiers: [{ code: "0", name: "Boundless" }],
+        },
+      ];
+
+      let radarChartInstance = null;
+      let lastBaseQuery = "";
+
+      window.addEventListener("DOMContentLoaded", () => {
+        renderTierScale(null);
+        const savedKey = localStorage.getItem("grimoire_gemini_key");
+        const savedModel =
+          localStorage.getItem("grimoire_gemini_model") || "gemini-2.5-flash";
+        document.getElementById("model-select").value = savedModel;
+
+        if (savedKey) {
+          showWorkspace(savedModel);
+        }
+      });
+
+      function saveAndLogin() {
+        const key = document.getElementById("api-key-input").value.trim();
+        const model = document.getElementById("model-select").value;
+        const errBox = document.getElementById("login-error");
+
+        if (!key || key.length < 20) {
+          errBox.textContent =
+            "SEAL REJECTED: Please inscribe a valid Gemini API key from Google AI Studio.";
+          errBox.style.display = "block";
+          return;
+        }
+
+        errBox.style.display = "none";
+        localStorage.setItem("grimoire_gemini_key", key);
+        localStorage.setItem("grimoire_gemini_model", model);
+        showWorkspace(model);
+      }
+
+      function logoutKey() {
+        localStorage.removeItem("grimoire_gemini_key");
+        document.getElementById("api-key-input").value = "";
+        document.getElementById("app-workspace").style.display = "none";
+        document.getElementById("header-controls").style.display = "none";
+        document.getElementById("login-screen").style.display = "block";
+      }
+
+      function showWorkspace(model) {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("app-workspace").style.display = "block";
+        document.getElementById("header-controls").style.display = "flex";
+        document.getElementById("active-model-badge").textContent =
+          model.toUpperCase();
+      }
+
+      function quickSearch(name) {
+        document.getElementById("char-search-input").value = name;
+        initiateScan();
+      }
+
+      function extractAndRepairJSON(rawText) {
+        if (!rawText) throw new Error("Empty scroll returned by Gemini.");
+
+        // Strip markdown code fences if present
+        let cleaned = rawText
+          .replace(/^```(?:json)?\s*/i, "")
+          .replace(/\s*```$/i, "")
+          .trim();
+
+        // Extract from first '{' to last '}' if surrounded by extra text
+        const firstBrace = cleaned.indexOf("{");
+        const lastBrace = cleaned.lastIndexOf("}");
+        if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+          cleaned = cleaned.slice(firstBrace, lastBrace + 1);
+        }
+
+        // First try direct parse
+        try {
+          return JSON.parse(cleaned);
+        } catch (_) {}
+
+        // Repair common LLM JSON mistakes outside string literals:
+        // 1) Single-quoted property names or values -> double quotes
+        // 2) Unquoted property names (e.g. { foo: "bar" } or ,\n  foo: "bar")
+        // 3) Trailing commas before } or ]
+        let repaired = "";
+        let inString = false;
+        let quoteChar = "";
+        let escaped = false;
+
+        for (let i = 0; i < cleaned.length; i++) {
+          const ch = cleaned[i];
+          const next = cleaned[i + 1] || "";
+
+          if (escaped) {
+            repaired += ch;
+            escaped = false;
+            continue;
+          }
+
+          if (ch === "\\") {
+            repaired += ch;
+            escaped = true;
+            continue;
+          }
+
+          if (inString) {
+            if (ch === quoteChar) {
+              repaired += '"';
+              inString = false;
+              quoteChar = "";
+            } else if (ch === '"' && quoteChar === "'") {
+              repaired += '\\"';
+            } else if (ch === "\n") {
+              repaired += "\\n";
+            } else if (ch === "\r") {
+              repaired += "\\r";
+            } else {
+              repaired += ch;
+            }
+            continue;
+          }
+
+          if (ch === '"' || ch === "'") {
+            inString = true;
+            quoteChar = ch;
+            repaired += '"';
+            continue;
+          }
+
+          // Convert single-line JS comments outside strings into spaces
+          if (ch === "/" && next === "/") {
+            while (i < cleaned.length && cleaned[i] !== "\n") i++;
+            repaired += "\n";
+            continue;
+          }
+
+          // Quote unquoted object keys after '{', ',', or whitespace/newline
+          if (/[A-Za-z_$]/.test(ch)) {
+            let key = ch;
+            let j = i + 1;
+            while (j < cleaned.length && /[A-Za-z0-9_$-]/.test(cleaned[j])) {
+              key += cleaned[j];
+              j++;
+            }
+            let k = j;
+            while (k < cleaned.length && /\s/.test(cleaned[k])) k++;
+            if (cleaned[k] === ":") {
+              repaired += `"${key}"`;
+              i = j - 1;
+              continue;
+            }
+          }
+
+          repaired += ch;
+        }
+
+        // Remove trailing commas before } or ]
+        repaired = repaired.replace(/,\s*([}\]])/g, "$1");
+
+        return JSON.parse(repaired);
+      }
+
+      async function callGeminiJSON(promptText) {
+        const apiKey = localStorage.getItem("grimoire_gemini_key");
+        const model =
+          localStorage.getItem("grimoire_gemini_model") || "gemini-2.5-flash";
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: promptText }] }],
+            generationConfig: {
+              responseMimeType: "application/json",
+              temperature: 0.2,
+            },
+          }),
+        });
+
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          const msg =
+            errData?.error?.message || `HTTP Error ${response.status}`;
+          throw new Error(msg);
+        }
+
+        const data = await response.json();
+        const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!rawText) throw new Error("Empty scroll returned by Gemini.");
+
+        try {
+          return extractAndRepairJSON(rawText);
+        } catch (parseErr) {
+          // Automatic single retry with strict JSON formatting reinforcement
+          const retryResponse = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [
+                {
+                  parts: [
+                    {
+                      text: `${promptText}\n\nCRITICAL: Output ONLY valid RFC 8259 JSON. Every property name and string value MUST use double quotes ("). No trailing commas, no single quotes, no unquoted keys.`,
+                    },
+                  ],
+                },
+              ],
+              generationConfig: {
+                responseMimeType: "application/json",
+                temperature: 0.1,
+              },
+            }),
+          });
+
+          if (retryResponse.ok) {
+            const retryData = await retryResponse.json();
+            const retryText =
+              retryData.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (retryText) {
+              return extractAndRepairJSON(retryText);
+            }
+          }
+          throw new Error(
+            `${parseErr.message} — Raw output: ${rawText.slice(0, 240)}`,
+          );
+        }
+      }
+
+      async function initiateScan() {
+        const query = document.getElementById("char-search-input").value.trim();
+        if (!query) return;
+
+        lastBaseQuery = query;
+        hideAlerts();
+        document.getElementById("stat-sheet").style.display = "none";
+        document.getElementById("disambiguation-box").style.display = "none";
+        setLoading(true, `DIVINING ARCHIVES FOR "${query.toUpperCase()}"...`);
+
+        const disambigPrompt = `
+You are a fictional character database and powerscaling assistant.
+The user searched for: "${query}".
+
+Determine if this query has MULTIPLE well-known versions/continuities/forms of the same character (e.g., "Superman" -> Post-Crisis/Mainline DC, Silver Age Superman, All-Star Superman, Injustice Superman, Superman (DCAU/Animated), or "Spider-Man", "Goku", "Link", "Megatron", "Doctor Who") OR is an ambiguous name shared across different franchises ("Dante", "Arthur", "Zero", "Saber", etc.).
+
+Return ONLY valid JSON with this exact schema:
+{
+  "hasMultipleVersionsOrEntities": boolean,
+  "mode": "versions" or "ambiguous" or "single",
+  "candidates": [
+    {
+      "fullName": "Specific Version or Character Name (e.g. 'Post-Crisis / Mainline Superman')",
+      "franchise": "Series / Continuity / Universe",
+      "shortDescription": "1-sentence identifier of this version's continuity or signature role"
+    }
+  ]
+}
+Rules:
+- If the character has multiple well-known versions/continuities and the user did NOT specify a particular version, set "hasMultipleVersionsOrEntities": true, "mode": "versions", and list the TOP 5 most common/prominent versions (up to 5 items).
+- If the query is an ambiguous name across different franchises and did NOT specify the franchise, set "hasMultipleVersionsOrEntities": true, "mode": "ambiguous", and list up to 5 most prominent characters.
+- If the user already specified a single clear character or version (e.g. "All-Star Superman", "Asta (Black Clover)", "Son Goku (Dragon Ball Super)"), set "hasMultipleVersionsOrEntities": false, "mode": "single", and provide 1 candidate.
+`;
+
+        try {
+          const result = await callGeminiJSON(disambigPrompt);
+
+          if (
+            result.hasMultipleVersionsOrEntities &&
+            result.candidates &&
+            result.candidates.length > 1
+          ) {
+            setLoading(false);
+            showDisambiguation(
+              query,
+              result.candidates.slice(0, 5),
+              result.mode || "versions",
+            );
+          } else {
+            const target = result.candidates?.[0] || {
+              fullName: query,
+              franchise: "Unknown Realm",
+            };
+            await generateCharacterSheet(target.fullName, target.franchise);
+          }
+        } catch (err) {
+          setLoading(false);
+          showError(`DIVINATION FAILED: ${err.message}`);
+        }
+      }
+
+      function showDisambiguation(query, candidates, mode) {
+        const box = document.getElementById("disambiguation-box");
+        const grid = document.getElementById("candidates-grid");
+        const titleEl = document.getElementById("disambig-title");
+        const promptEl = document.getElementById("disambig-prompt");
+        const customInput = document.getElementById("custom-variant-input");
+
+        if (mode === "versions") {
+          titleEl.textContent = `✦ TOP 5 MOST COMMON VERSIONS OF "${query.toUpperCase()}"`;
+          promptEl.textContent = `Multiple continuities or interpretations exist for "${query}". Choose one of the top 5 below, or type a specific variation underneath:`;
+          customInput.placeholder = `e.g., Cosmic Armor ${query}, ${query} One Million, Kingdom Come...`;
+        } else {
+          titleEl.textContent = `⚠ MULTIPLE ENTITIES DETECTED IN THE ARCHIVES`;
+          promptEl.textContent = `Multiple fictional figures bear the name "${query}". Choose one below, or type a specific version/franchise underneath:`;
+          customInput.placeholder = `Specify exact version or franchise for "${query}"...`;
+        }
+
+        customInput.value = "";
+        grid.innerHTML = "";
+        candidates.slice(0, 5).forEach((c, idx) => {
+          const card = document.createElement("div");
+          card.className = "candidate-card";
+          card.innerHTML = `
+          <div class="cand-rank">VERSION #${toRoman(idx + 1)}</div>
+          <div class="cand-name">${escapeHtml(c.fullName)}</div>
+          <div class="cand-verse">✦ ${escapeHtml(c.franchise)}</div>
+          <div class="cand-desc">${escapeHtml(c.shortDescription)}</div>
+        `;
+          card.onclick = () => {
+            box.style.display = "none";
+            generateCharacterSheet(c.fullName, c.franchise);
+          };
+          grid.appendChild(card);
+        });
+
+        box.style.display = "block";
+      }
+
+      async function searchCustomVariation() {
+        const customVar = document
+          .getElementById("custom-variant-input")
+          .value.trim();
+        if (!customVar) return;
+
+        const fullQuery = customVar
+          .toLowerCase()
+          .includes(lastBaseQuery.toLowerCase())
+          ? customVar
+          : `${customVar} (${lastBaseQuery})`;
+
+        document.getElementById("disambiguation-box").style.display = "none";
+        hideAlerts();
+        await generateCharacterSheet(fullQuery, lastBaseQuery);
+      }
+
+      async function generateCharacterSheet(fullName, franchise) {
+        setLoading(
+          true,
+          `AUDITING DIRECT FEATS & ENERGY OUTPUT FOR ${fullName.toUpperCase()}...`,
+        );
+
+        const validCodes = VS_TIERS.flatMap((g) =>
+          g.tiers.map((t) => `${t.code} (${t.name})`),
+        ).join(", ");
+
+        const analysisPrompt = `
+You are an empirical, rigorous VS Battles Wiki powerscaling analyst evaluating "${fullName}" from "${franchise}" (standard/peak canon form of this specific version unless specified).
+
+CRITICAL POWERSCALING METHODOLOGY RULES (STRICTLY ENFORCED):
+1. NO ROCK-PAPER-SCISSORS / TRANSITIVE CHAIN FALLACIES: Never claim "Character A beats Character B because A beat C and C beat B." Matchup advantages, elemental weaknesses, kryptonite/anti-magic, or circumstantial wins do NOT transfer raw Attack Potency (AP) or Durability.
+2. SEPARATE HAX / DURABILITY NEGATION FROM RAW AP: If a character bypasses durability via spatial cutting, soul manipulation, conceptual erasure, anti-magic, poison, or mental attacks, classify that as HAX—do NOT inflate their physical/destructive Tier to match the victim's durability unless they matched or overpowered the victim's raw kinetic/energy output directly.
+3. ANCHOR TO DIRECT FEATS & ENERGY OUTPUT: Base the VS Wiki Tier primarily on demonstrated destructive capacity, direct energy clashes, creation/destruction feats, and verified physical proportionality—double-checking against outliers or non-combat environmental quirks.
+4. PROVIDE EXACT ARCHIVE IDENTIFIERS FOR IMAGE LOOKUP: Give the exact Fandom/Wikipedia article slug and character metadata so our portrait resolver fetches the exact right character.
+
+Valid Tier Codes & Names:
+${validCodes}
+
+Return ONLY valid JSON matching this exact structure:
+{
+  "name": "${fullName}",
+  "franchise": "${franchise}",
+  "canonicalFullName": "Exact English canonical character name (e.g. 'Superman', 'Asta', 'Satoru Gojo', 'Batman', 'Dante')",
+  "fandomSubdomain": "Exact Fandom wiki subdomain if applicable (e.g. 'dc', 'blackclover', 'jujutsu-kaisen', 'devilmaycry', 'dragonball', 'tensura', 'naruto', 'onepiece', 'bleach', 'marvel')",
+  "fandomPageTitle": "Exact page title on that Fandom wiki (e.g. 'Superman', 'Asta', 'Satoru_Gojo', 'Dante', 'Son_Goku')",
+  "wikiPageTitle": "Exact English Wikipedia article title if notable there (e.g. 'Superman', 'Goku', 'Batman', 'Dante_(Devil_May_Cry)')",
+  "tierCode": "Exact code from the list above",
+  "tierName": "Exact tier title from the list above",
+  "stats": {
+    "attackPotency": 85,
+    "speed": 80,
+    "durability": 78,
+    "intelligence": 90,
+    "range": 75,
+    "hax": 88
+  },
+  "reasoning": "A clear, grounded 2-3 paragraph explanation anchoring their tier to direct destructive/energy feats and legitimate physical scaling—explicitly avoiding circular A>B>C matchup fallacies.",
+  "antiFallacyAudit": "2-3 sentences explicitly double-checking potential scaling traps for this character: separating their durability-negating hax, situational counters, or outliers from their true baseline Attack Potency and Durability.",
+  "keyFeats": [
+    "Direct canon feat 1 with concrete destructive/energy scale",
+    "Direct canon feat 2 with concrete speed/durability scale",
+    "Direct canon feat 3 with verified proportionality"
+  ],
+  "abilities": [
+    "Ability 1",
+    "Ability 2",
+    "Ability 3",
+    "Ability 4",
+    "Ability 5",
+    "Ability 6",
+    "Ability 7",
+    "Ability 8"
+  ]
+}
+
+Rules for "stats":
+- Each of the 6 radar values (attackPotency, speed, durability, intelligence, range, hax) MUST be an integer from 15 to 100 representing their relative balance within/around their tier bracket.
+- "tierCode" MUST match one of the exact codes in the valid list.
+`;
+
+        try {
+          const sheetData = await callGeminiJSON(analysisPrompt);
+          const portraitResult = await fetchVerifiedPortraits(sheetData);
+
+          setLoading(false);
+          renderStatSheet(sheetData, portraitResult);
+        } catch (err) {
+          setLoading(false);
+          showError(`INSCRIPTION ERROR: ${err.message}`);
+        }
+      }
+
+      // Strict Multi-Source Portrait Resolver
+      async function fetchVerifiedPortraits(data) {
+        const verified = [];
+        const rawName = (data.canonicalFullName || data.name || "")
+          .replace(/\(.*?\)/g, "")
+          .trim();
+        const franchise = (data.franchise || "").toLowerCase();
+        const fandomSub = (data.fandomSubdomain || "")
+          .toLowerCase()
+          .replace(/[^a-z0-9-]/g, "");
+        const fandomPage = (data.fandomPageTitle || rawName).trim();
+        const wikiTitle = (data.wikiPageTitle || "").trim();
+
+        const nameParts = rawName.split(/\s+/);
+        const nameVariants = [rawName];
+        if (nameParts.length === 2) {
+          nameVariants.push(`${nameParts[1]} ${nameParts[0]}`);
+        }
+        const normVariants = nameVariants.map((n) => n.toLowerCase());
+        const franchiseTokens = franchise
+          .split(/[^a-z0-9]+/)
+          .filter((t) => t.length > 2);
+
+        const addUnique = (url, source) => {
+          if (!url || typeof url !== "string") return;
+          const cleanUrl = url.split("/revision/")[0];
+          if (!verified.some((v) => v.url === cleanUrl)) {
+            verified.push({ url: cleanUrl, source });
+          }
+        };
+
+        // 1. Fandom Wiki MediaWiki API
+        if (fandomSub) {
+          const pageCandidates = [fandomPage, rawName.replace(/\s+/g, "_")];
+          for (const page of pageCandidates) {
+            try {
+              const fandomUrl = `https://${fandomSub}.fandom.com/api.php?action=query&titles=${encodeURIComponent(page)}&redirects=1&prop=pageimages&pithumbsize=600&format=json&origin=*`;
+              const res = await fetch(fandomUrl);
+              if (res.ok) {
+                const json = await res.json();
+                const pages = Object.values(json?.query?.pages || {});
+                for (const p of pages) {
+                  if (p.missing === undefined && p.thumbnail?.source) {
+                    addUnique(
+                      p.thumbnail.source,
+                      `FANDOM (${fandomSub.toUpperCase()})`,
+                    );
+                  }
+                }
+              }
+            } catch (_) {}
+            if (verified.length > 0) break;
+          }
+        }
+
+        // 2. AniList GraphQL API
+        try {
+          const anilistQuery = `
+          query ($search: String) {
+            Page(perPage: 8) {
+              characters(search: $search, sort: FAVOURITES_DESC) {
+                name { full native alternative }
+                image { large }
+                media(perPage: 6) {
+                  nodes { title { romaji english } }
+                }
+              }
+            }
+          }
+        `;
+          const aniRes = await fetch("https://graphql.anilist.co", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              query: anilistQuery,
+              variables: { search: rawName },
+            }),
+          });
+          if (aniRes.ok) {
+            const aniJson = await aniRes.json();
+            const chars = aniJson?.data?.Page?.characters || [];
+            for (const ch of chars) {
+              const chFull = (ch.name?.full || "").toLowerCase();
+              const alts = (ch.name?.alternative || []).map((a) =>
+                a.toLowerCase(),
+              );
+              const mediaTitles = (ch.media?.nodes || [])
+                .map((m) =>
+                  `${m.title?.romaji || ""} ${m.title?.english || ""}`.toLowerCase(),
+                )
+                .join(" ");
+
+              const exactNameMatch = normVariants.some(
+                (v) => chFull === v || alts.includes(v),
+              );
+              const verseMatch =
+                franchiseTokens.length > 0 &&
+                franchiseTokens.some((tok) => mediaTitles.includes(tok));
+
+              if (
+                exactNameMatch &&
+                verseMatch &&
+                ch.image?.large &&
+                !ch.image.large.includes("default.jpg")
+              ) {
+                addUnique(ch.image.large, "ANILIST ARCHIVE");
+              }
+            }
+          }
+        } catch (_) {}
+
+        // 3. Wikipedia API
+        if (wikiTitle) {
+          try {
+            const exactUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(wikiTitle)}&redirects=1&prop=pageimages|extracts&exintro=1&explaintext=1&pithumbsize=600&format=json&origin=*`;
+            const wRes = await fetch(exactUrl);
+            if (wRes.ok) {
+              const wData = await wRes.json();
+              const pages = Object.values(wData?.query?.pages || {});
+              for (const p of pages) {
+                if (p.missing !== undefined || !p.thumbnail?.source) continue;
+                const extract = (p.extract || "").toLowerCase();
+                const isRelevant =
+                  franchiseTokens.some((tok) => extract.includes(tok)) ||
+                  extract.includes("fictional") ||
+                  extract.includes("character") ||
+                  extract.includes("protagonist") ||
+                  extract.includes("antagonist");
+
+                if (isRelevant) {
+                  addUnique(p.thumbnail.source, "WIKIPEDIA ARCHIVE");
+                }
+              }
+            }
+          } catch (_) {}
+        }
+
+        // 4. Fallback SVG
+        verified.push({
+          url: createFallbackPortrait(rawName, data.franchise),
+          source: "ARCANE SEAL (NO VERIFIED PORTRAIT FOUND)",
+        });
+
+        return verified;
+      }
+
+      function createFallbackPortrait(name, franchise) {
+        const initials = (name || "?")
+          .split(" ")
+          .map((w) => w[0])
+          .join("")
+          .slice(0, 3)
+          .toUpperCase();
+        const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+          <defs>
+            <radialGradient id="bg" cx="50%" cy="40%" r="65%">
+              <stop offset="0%" stop-color="#241612"/>
+              <stop offset="100%" stop-color="#0b0807"/>
+            </radialGradient>
+          </defs>
+          <rect width="400" height="500" fill="url(#bg)"/>
+          <circle cx="200" cy="190" r="115" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.6"/>
+          <circle cx="200" cy="190" r="88" fill="rgba(139,30,36,0.22)" stroke="#d4af37" stroke-width="2"/>
+          <polygon points="200,82 293,244 107,244" fill="none" stroke="#d4af37" stroke-width="1.2" opacity="0.45"/>
+          <polygon points="200,298 293,136 107,136" fill="none" stroke="#d4af37" stroke-width="1.2" opacity="0.45"/>
+          <text x="200" y="208" font-family="Georgia, serif" font-weight="900" font-size="48" fill="#f5d76e" text-anchor="middle">${initials}</text>
+          <text x="200" y="345" font-family="Georgia, serif" font-size="13" fill="#a8947a" text-anchor="middle" letter-spacing="2">NO VERIFIED PORTRAIT</text>
+          <text x="200" y="368" font-family="Georgia, serif" font-size="11" fill="#d4af37" text-anchor="middle" letter-spacing="1">BIND IMAGE URL BELOW</text>
+        </svg>`;
+        return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+      }
+
+      function applyCustomImage() {
+        const url = document.getElementById("custom-img-url").value.trim();
+        if (url) {
+          document.getElementById("char-image").src = url;
+          document.getElementById("portrait-source-note").textContent =
+            "SOURCE: CUSTOM BOUND URL";
+        }
+      }
+
+      function toRoman(num) {
+        const map = [
+          [1000, "M"],
+          [900, "CM"],
+          [500, "D"],
+          [400, "CD"],
+          [100, "C"],
+          [90, "XC"],
+          [50, "L"],
+          [40, "XL"],
+          [10, "X"],
+          [9, "IX"],
+          [5, "V"],
+          [4, "IV"],
+          [1, "I"],
+        ];
+        let res = "";
+        for (const [val, sym] of map) {
+          while (num >= val) {
+            res += sym;
+            num -= val;
+          }
+        }
+        return res;
+      }
+
+      function renderStatSheet(data, portraits) {
+        const folioNum = toRoman(Math.floor(1 + Math.random() * 499));
+        document.getElementById("subject-id-tag").textContent =
+          `FOLIO ${folioNum}`;
+
+        const mainImg = document.getElementById("char-image");
+        const sourceNote = document.getElementById("portrait-source-note");
+        mainImg.src = portraits[0].url;
+        sourceNote.textContent = `SOURCE: ${portraits[0].source}`;
+
+        mainImg.onerror = () => {
+          if (portraits.length > 1) {
+            const fallback = portraits[portraits.length - 1];
+            mainImg.src = fallback.url;
+            sourceNote.textContent = `SOURCE: ${fallback.source}`;
+          }
+        };
+
+        const altRow = document.getElementById("alt-portraits-row");
+        const realPortraits = portraits.filter(
+          (p) => !p.url.startsWith("data:image/svg"),
+        );
+        if (realPortraits.length > 1) {
+          altRow.style.display = "flex";
+          altRow.innerHTML = realPortraits
+            .slice(0, 4)
+            .map(
+              (p, idx) => `
+          <img src="${p.url}" class="alt-thumb ${idx === 0 ? "selected" : ""}" title="${escapeHtml(p.source)}" onclick="selectAltPortrait(this, '${p.url.replace(/'/g, "\\'")}', '${p.source.replace(/'/g, "\\'")}')" />
+        `,
+            )
+            .join("");
+        } else {
+          altRow.style.display = "none";
+          altRow.innerHTML = "";
+        }
+
+        document.getElementById("char-franchise").textContent =
+          data.franchise || "UNKNOWN REALM";
+        document.getElementById("char-name").textContent =
+          data.name || "UNKNOWN";
+        document.getElementById("custom-img-url").value = "";
+
+        document.getElementById("hero-tier-code").textContent =
+          `TIER ${data.tierCode}`;
+        document.getElementById("hero-tier-name").textContent = data.tierName;
+
+        const s = data.stats || {
+          attackPotency: 50,
+          speed: 50,
+          durability: 50,
+          intelligence: 50,
+          range: 50,
+          hax: 50,
+        };
+        const statEntries = [
+          { label: "ATK POTENCY", val: s.attackPotency },
+          { label: "SPEED", val: s.speed },
+          { label: "DURABILITY", val: s.durability },
+          { label: "INTELLECT", val: s.intelligence },
+          { label: "RANGE", val: s.range },
+          { label: "ARCANE / HAX", val: s.hax },
+        ];
+
+        const pillsGrid = document.getElementById("stat-pills-grid");
+        pillsGrid.innerHTML = statEntries
+          .map(
+            (st) => `
+        <div class="stat-mini">
+          <span class="stat-mini-name">${st.label}</span>
+          <span class="stat-mini-val">${st.val}</span>
+        </div>
+      `,
+          )
+          .join("");
+
+        renderRadarChart(statEntries);
+
+        document.getElementById("scaling-reasoning").innerHTML = escapeHtml(
+          data.reasoning || "",
+        ).replace(/\n/g, "<br><br>");
+        document.getElementById("audit-text").textContent =
+          data.antiFallacyAudit ||
+          "Verified directly against baseline energy output and canon feats without circular chain-scaling.";
+
+        const featsList = document.getElementById("feats-list");
+        featsList.innerHTML = (data.keyFeats || [])
+          .map((f) => `<li>✦ ${escapeHtml(f)}</li>`)
+          .join("");
+
+        const abilitiesList = document.getElementById("abilities-list");
+        abilitiesList.innerHTML = (data.abilities || [])
+          .map(
+            (ab) => `
+        <div class="ability-tag"><span>❖</span> ${escapeHtml(ab)}</div>
+      `,
+          )
+          .join("");
+
+        renderTierScale(data.tierCode);
+
+        document.getElementById("stat-sheet").style.display = "block";
+      }
+
+      function selectAltPortrait(thumbEl, url, source) {
+        document.getElementById("char-image").src = url;
+        document.getElementById("portrait-source-note").textContent =
+          `SOURCE: ${source}`;
+        document
+          .querySelectorAll(".alt-thumb")
+          .forEach((el) => el.classList.remove("selected"));
+        thumbEl.classList.add("selected");
+      }
+
+      function renderRadarChart(statEntries) {
+        const ctx = document.getElementById("radarChart").getContext("2d");
+        if (radarChartInstance) {
+          radarChartInstance.destroy();
+        }
+
+        radarChartInstance = new Chart(ctx, {
+          type: "radar",
+          data: {
+            labels: statEntries.map((s) => s.label),
+            datasets: [
+              {
+                label: "ASTRAL EVALUATION",
+                data: statEntries.map((s) => s.val),
+                backgroundColor: "rgba(139, 30, 36, 0.35)",
+                borderColor: "#f5d76e",
+                borderWidth: 2.5,
+                pointBackgroundColor: "#f5d76e",
+                pointBorderColor: "#8b1e24",
+                pointBorderWidth: 2,
+                pointRadius: 4.5,
+                pointHoverRadius: 6.5,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+              r: {
+                min: 0,
+                max: 100,
+                ticks: {
+                  stepSize: 20,
+                  display: false,
+                },
+                grid: {
+                  color: "rgba(212, 175, 55, 0.25)",
+                  lineWidth: 1,
+                },
+                angleLines: {
+                  color: "rgba(212, 175, 55, 0.32)",
+                  lineWidth: 1,
+                },
+                pointLabels: {
+                  color: "#efe5d5",
+                  font: {
+                    family: "'Cinzel', serif",
+                    size: 11,
+                    weight: "700",
+                  },
+                },
+              },
+            },
+            plugins: {
+              legend: { display: false },
+            },
+          },
+        });
+      }
+
+      function renderTierScale(activeCode) {
+        const container = document.getElementById("tier-scale-list");
+        const normalizedActive = (activeCode || "").trim().toLowerCase();
+
+        container.innerHTML = VS_TIERS.map((group) => {
+          const itemsHtml = group.tiers
+            .map((t) => {
+              const isMatch = t.code.toLowerCase() === normalizedActive;
+              return `
+            <div class="tier-item ${isMatch ? "active-tier" : ""}" id="${isMatch ? "active-tier-target" : ""}">
+              <span><strong>${t.code}</strong>: ${t.name}</span>
+            </div>
+          `;
+            })
+            .join("");
+
+          return `
+          <div class="tier-group">
+            <div class="tier-group-header">${group.group}</div>
+            ${itemsHtml}
+          </div>
+        `;
+        }).join("");
+
+        setTimeout(() => {
+          const activeEl = document.getElementById("active-tier-target");
+          if (activeEl) {
+            activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 150);
+      }
+
+      function setLoading(isLoading, text = "") {
+        const loader = document.getElementById("loader-box");
+        if (isLoading) {
+          document.getElementById("loader-text").textContent = text;
+          loader.style.display = "block";
+        } else {
+          loader.style.display = "none";
+        }
+      }
+
+      function showError(msg) {
+        const box = document.getElementById("app-error");
+        box.textContent = msg;
+        box.style.display = "block";
+      }
+
+      function hideAlerts() {
+        document.getElementById("app-error").style.display = "none";
+      }
+
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+    </script>
+  </body>
+</html>
