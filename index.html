@@ -3,965 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GRIMOIRE // ARCANE POWERSCALING CODEX</title>
+    <title>POWERSCALE // STAND SHOWCASE</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Cinzel+Decorative:wght@700;900&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --bg-void: #0b0807;
-        --bg-leather: #140e0c;
-        --bg-parchment: #1b1310;
-        --bg-inset: #0e0a08;
-        --gold-leaf: #d4af37;
-        --gold-bright: #f5d76e;
-        --gold-dim: rgba(212, 175, 55, 0.28);
-        --crimson-seal: #8b1e24;
-        --crimson-glow: #c82832;
-        --text-parchment: #efe5d5;
-        --text-sepia: #a8947a;
-        --border-ornate: rgba(212, 175, 55, 0.42);
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        background-color: var(--bg-void);
-        color: var(--text-parchment);
-        font-family: "Crimson Pro", Georgia, serif;
-        min-height: 100vh;
-        overflow-x: hidden;
-        background-image:
-          radial-gradient(
-            circle at 50% 0%,
-            rgba(212, 175, 55, 0.12) 0%,
-            transparent 65%
-          ),
-          radial-gradient(
-            circle at 15% 85%,
-            rgba(139, 30, 36, 0.14) 0%,
-            transparent 50%
-          ),
-          repeating-linear-gradient(
-            45deg,
-            rgba(212, 175, 55, 0.015) 0px,
-            rgba(212, 175, 55, 0.015) 2px,
-            transparent 2px,
-            transparent 12px
-          );
-      }
-
-      .tome-frame {
-        background: linear-gradient(
-          180deg,
-          var(--bg-parchment) 0%,
-          var(--bg-leather) 100%
-        );
-        border: 1px solid var(--border-ornate);
-        box-shadow:
-          0 12px 35px rgba(0, 0, 0, 0.75),
-          inset 0 0 0 4px var(--bg-inset),
-          inset 0 0 0 5px rgba(212, 175, 55, 0.22);
-        position: relative;
-      }
-
-      header {
-        border-bottom: 2px solid var(--border-ornate);
-        background: linear-gradient(180deg, #160f0d 0%, #0d0908 100%);
-        padding: 16px 32px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 50;
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8);
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .arcane-crest {
-        width: 40px;
-        height: 40px;
-        border: 2px solid var(--gold-leaf);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: radial-gradient(
-          circle,
-          rgba(212, 175, 55, 0.25),
-          transparent
-        );
-        box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
-        font-family: "Cinzel Decorative", serif;
-        color: var(--gold-bright);
-        font-weight: 900;
-        font-size: 1.1rem;
-      }
-
-      .brand-title {
-        font-family: "Cinzel Decorative", serif;
-        font-weight: 900;
-        font-size: 1.35rem;
-        letter-spacing: 2px;
-        color: var(--gold-bright);
-        text-shadow: 0 2px 10px rgba(212, 175, 55, 0.35);
-      }
-
-      .brand-sub {
-        font-family: "Cinzel", serif;
-        font-size: 0.72rem;
-        color: var(--text-sepia);
-        letter-spacing: 2.5px;
-        text-transform: uppercase;
-      }
-
-      .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
-
-      .status-pill {
-        font-family: "Cinzel", serif;
-        font-size: 0.74rem;
-        font-weight: 700;
-        padding: 6px 14px;
-        background: rgba(212, 175, 55, 0.08);
-        border: 1px solid var(--gold-leaf);
-        color: var(--gold-bright);
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        letter-spacing: 1px;
-      }
-
-      .status-rune {
-        color: var(--gold-bright);
-        animation: glowRune 2s infinite ease-in-out;
-      }
-
-      @keyframes glowRune {
-        0%,
-        100% {
-          opacity: 1;
-          text-shadow: 0 0 8px var(--gold-bright);
-        }
-        50% {
-          opacity: 0.35;
-        }
-      }
-
-      .btn-arcane {
-        background: linear-gradient(180deg, #a6242b 0%, #6e1419 100%);
-        color: var(--gold-bright);
-        border: 1px solid var(--gold-leaf);
-        padding: 10px 20px;
-        font-family: "Cinzel", serif;
-        font-weight: 800;
-        font-size: 0.82rem;
-        letter-spacing: 1.5px;
-        cursor: pointer;
-        text-transform: uppercase;
-        transition: all 0.2s ease;
-        box-shadow:
-          0 4px 14px rgba(0, 0, 0, 0.6),
-          inset 0 0 10px rgba(212, 175, 55, 0.2);
-      }
-
-      .btn-arcane:hover {
-        background: linear-gradient(180deg, #c82832 0%, #8b1e24 100%);
-        color: #fff;
-        border-color: var(--gold-bright);
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
-        transform: translateY(-1px);
-      }
-
-      .btn-parchment {
-        background: rgba(212, 175, 55, 0.06);
-        color: var(--text-sepia);
-        border: 1px solid rgba(212, 175, 55, 0.35);
-        padding: 8px 14px;
-        font-family: "Cinzel", serif;
-        font-size: 0.74rem;
-        font-weight: 600;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: 0.2s;
-      }
-
-      .btn-parchment:hover {
-        border-color: var(--gold-bright);
-        color: var(--gold-bright);
-        background: rgba(212, 175, 55, 0.14);
-      }
-
-      /* API Login Overlay */
-      #login-screen {
-        max-width: 780px;
-        margin: 48px auto;
-        padding: 0 20px;
-      }
-
-      .login-card {
-        padding: 42px 38px;
-      }
-
-      .seal-ribbon {
-        text-align: center;
-        font-family: "Cinzel", serif;
-        font-size: 0.75rem;
-        letter-spacing: 3px;
-        color: var(--gold-leaf);
-        margin-bottom: 10px;
-      }
-
-      .login-title {
-        font-family: "Cinzel Decorative", serif;
-        font-size: 1.9rem;
-        font-weight: 900;
-        text-align: center;
-        color: var(--gold-bright);
-        margin-bottom: 12px;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
-      }
-
-      .ornate-divider {
-        text-align: center;
-        color: var(--gold-leaf);
-        letter-spacing: 8px;
-        margin: 12px 0 20px;
-        font-size: 0.9rem;
-        opacity: 0.75;
-      }
-
-      .login-desc {
-        color: var(--text-parchment);
-        line-height: 1.65;
-        margin-bottom: 24px;
-        font-size: 1.08rem;
-        text-align: center;
-      }
-
-      .steps-box {
-        background: var(--bg-inset);
-        border: 1px solid rgba(212, 175, 55, 0.28);
-        border-left: 3px solid var(--gold-leaf);
-        padding: 20px 24px;
-        margin-bottom: 26px;
-      }
-
-      .steps-box h3 {
-        font-family: "Cinzel", serif;
-        font-size: 0.92rem;
-        color: var(--gold-bright);
-        margin-bottom: 14px;
-        letter-spacing: 1.5px;
-      }
-
-      .steps-list {
-        list-style: none;
-        counter-reset: step-counter;
-      }
-
-      .steps-list li {
-        counter-increment: step-counter;
-        margin-bottom: 11px;
-        font-size: 1.02rem;
-        color: #e6dac6;
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        line-height: 1.5;
-      }
-
-      .steps-list li::before {
-        content: "I." counter(step-counter, upper-roman);
-        font-family: "Cinzel", serif;
-        font-size: 0.72rem;
-        font-weight: 800;
-        background: var(--crimson-seal);
-        border: 1px solid var(--gold-leaf);
-        color: var(--gold-bright);
-        padding: 2px 8px;
-        margin-top: 2px;
-        flex-shrink: 0;
-      }
-
-      .steps-list a {
-        color: var(--gold-bright);
-        text-decoration: underline;
-        font-weight: 700;
-      }
-
-      .input-group {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .arcane-input {
-        flex: 1;
-        min-width: 240px;
-        background: var(--bg-inset);
-        border: 1px solid var(--border-ornate);
-        color: var(--text-parchment);
-        padding: 13px 16px;
-        font-family: "Crimson Pro", serif;
-        font-size: 1.05rem;
-        outline: none;
-        transition: 0.2s;
-      }
-
-      .arcane-input:focus {
-        border-color: var(--gold-bright);
-        box-shadow: 0 0 16px rgba(212, 175, 55, 0.25);
-      }
-
-      .arcane-input-sm {
-        flex: 1;
-        min-width: 200px;
-        background: var(--bg-inset);
-        border: 1px solid rgba(212, 175, 55, 0.45);
-        color: var(--text-parchment);
-        padding: 9px 14px;
-        font-family: "Crimson Pro", serif;
-        font-size: 0.98rem;
-        outline: none;
-        transition: 0.2s;
-      }
-
-      .arcane-input-sm:focus {
-        border-color: var(--gold-bright);
-        box-shadow: 0 0 12px rgba(212, 175, 55, 0.2);
-      }
-
-      .model-select-row {
-        margin-top: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        font-family: "Cinzel", serif;
-        font-size: 0.78rem;
-        color: var(--text-sepia);
-      }
-
-      .arcane-select {
-        background: var(--bg-inset);
-        color: var(--gold-bright);
-        border: 1px solid var(--border-ornate);
-        padding: 6px 12px;
-        font-family: "Cinzel", serif;
-        font-size: 0.78rem;
-      }
-
-      /* Main Workspace */
-      #app-workspace {
-        display: none;
-        max-width: 1380px;
-        margin: 28px auto;
-        padding: 0 24px 60px;
-      }
-
-      .scanner-bar {
-        padding: 24px 28px;
-        margin-bottom: 26px;
-      }
-
-      .scanner-label {
-        font-family: "Cinzel", serif;
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: var(--gold-bright);
-        letter-spacing: 2px;
-        margin-bottom: 10px;
-        display: block;
-      }
-
-      .search-row {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-
-      .quick-presets {
-        margin-top: 14px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex-wrap: wrap;
-        font-family: "Cinzel", serif;
-        font-size: 0.76rem;
-        color: var(--text-sepia);
-      }
-
-      .preset-chip {
-        background: rgba(212, 175, 55, 0.08);
-        border: 1px solid rgba(212, 175, 55, 0.3);
-        color: var(--text-parchment);
-        padding: 4px 11px;
-        font-family: "Crimson Pro", serif;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: 0.15s;
-      }
-
-      .preset-chip:hover {
-        background: var(--crimson-seal);
-        border-color: var(--gold-bright);
-        color: var(--gold-bright);
-      }
-
-      /* Loading & Disambiguation */
-      #loader-box {
-        display: none;
-        text-align: center;
-        padding: 52px 20px;
-        margin-bottom: 26px;
-      }
-
-      .magic-circle-spinner {
-        width: 62px;
-        height: 62px;
-        margin: 0 auto 18px;
-        border: 2px solid rgba(212, 175, 55, 0.2);
-        border-top: 2px solid var(--gold-bright);
-        border-bottom: 2px solid var(--crimson-glow);
-        border-radius: 50%;
-        animation: spin 1.1s linear infinite;
-        box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      #disambiguation-box {
-        display: none;
-        padding: 28px;
-        margin-bottom: 26px;
-        border-color: var(--gold-bright);
-      }
-
-      .disambig-header {
-        font-family: "Cinzel Decorative", serif;
-        color: var(--gold-bright);
-        font-size: 1.2rem;
-        margin-bottom: 6px;
-        letter-spacing: 1px;
-      }
-
-      .disambig-sub {
-        color: var(--text-sepia);
-        font-size: 1rem;
-        margin-bottom: 18px;
-      }
-
-      .candidates-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 14px;
-      }
-
-      .candidate-card {
-        background: var(--bg-inset);
-        border: 1px solid var(--border-ornate);
-        padding: 16px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        text-align: left;
-        position: relative;
-      }
-
-      .candidate-card:hover {
-        border-color: var(--gold-bright);
-        background: rgba(139, 30, 36, 0.25);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-      }
-
-      .cand-rank {
-        font-family: "Cinzel", serif;
-        font-size: 0.65rem;
-        color: var(--gold-leaf);
-        letter-spacing: 1.5px;
-        margin-bottom: 4px;
-      }
-
-      .cand-name {
-        font-family: "Cinzel", serif;
-        font-weight: 800;
-        font-size: 1.05rem;
-        color: var(--gold-bright);
-        margin-bottom: 4px;
-      }
-
-      .cand-verse {
-        font-family: "Cinzel", serif;
-        font-size: 0.74rem;
-        color: #d48c8c;
-        margin-bottom: 8px;
-        letter-spacing: 1px;
-      }
-
-      .cand-desc {
-        font-size: 0.95rem;
-        color: var(--text-parchment);
-        line-height: 1.4;
-      }
-
-      /* Custom Variation Mini Search Bar inside Disambiguation */
-      .custom-variant-box {
-        margin-top: 20px;
-        padding-top: 16px;
-        border-top: 1px dashed rgba(212, 175, 55, 0.32);
-      }
-
-      .custom-variant-label {
-        font-family: "Cinzel", serif;
-        font-size: 0.72rem;
-        color: var(--gold-bright);
-        letter-spacing: 1.5px;
-        margin-bottom: 8px;
-        display: block;
-      }
-
-      .custom-variant-row {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-
-      /* Stat Sheet Dashboard */
-      #stat-sheet {
-        display: none;
-        animation: fadeIn 0.45s ease;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .sheet-grid {
-        display: grid;
-        grid-template-columns: 345px 1fr 365px;
-        gap: 24px;
-        align-items: start;
-      }
-
-      @media (max-width: 1120px) {
-        .sheet-grid {
-          grid-template-columns: 1fr 1fr;
-        }
-        .tier-column {
-          grid-column: span 2;
-        }
-      }
-
-      @media (max-width: 760px) {
-        .sheet-grid {
-          grid-template-columns: 1fr;
-        }
-        .tier-column {
-          grid-column: span 1;
-        }
-      }
-
-      .panel-box {
-        padding: 24px;
-      }
-
-      .panel-tag {
-        font-family: "Cinzel", serif;
-        font-size: 0.74rem;
-        font-weight: 700;
-        color: var(--gold-bright);
-        letter-spacing: 1.8px;
-        text-transform: uppercase;
-        margin-bottom: 14px;
-        display: flex;
-        justify-content: space-between;
-        border-bottom: 1px solid rgba(212, 175, 55, 0.25);
-        padding-bottom: 7px;
-      }
-
-      /* Left Column: Portrait & Wax-Seal Tier Badge */
-      .portrait-frame {
-        width: 100%;
-        aspect-ratio: 4 / 5;
-        background: var(--bg-inset);
-        border: 2px solid var(--gold-leaf);
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9);
-      }
-
-      .portrait-frame img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: top center;
-      }
-
-      .portrait-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to top,
-          rgba(11, 8, 7, 0.96) 0%,
-          transparent 45%
-        );
-        pointer-events: none;
-      }
-
-      .portrait-caption {
-        position: absolute;
-        bottom: 14px;
-        left: 16px;
-        right: 16px;
-      }
-
-      .char-verse-tag {
-        font-family: "Cinzel", serif;
-        font-size: 0.72rem;
-        color: var(--gold-leaf);
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-      }
-
-      .char-display-name {
-        font-family: "Cinzel Decorative", serif;
-        font-size: 1.4rem;
-        font-weight: 900;
-        line-height: 1.2;
-        color: #fff;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
-      }
-
-      .portrait-source-note {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.68rem;
-        color: var(--text-sepia);
-        text-align: center;
-        margin-bottom: 8px;
-      }
-
-      .alt-portraits-row {
-        display: none;
-        gap: 6px;
-        margin-bottom: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .alt-thumb {
-        width: 44px;
-        height: 44px;
-        object-fit: cover;
-        object-position: top;
-        border: 1px solid var(--border-ornate);
-        cursor: pointer;
-        opacity: 0.7;
-        transition: 0.15s;
-      }
-
-      .alt-thumb:hover,
-      .alt-thumb.selected {
-        opacity: 1;
-        border-color: var(--gold-bright);
-        transform: scale(1.06);
-      }
-
-      .custom-img-bar {
-        display: flex;
-        gap: 6px;
-        margin-bottom: 18px;
-      }
-
-      .custom-img-bar input {
-        flex: 1;
-        background: var(--bg-inset);
-        border: 1px solid rgba(212, 175, 55, 0.3);
-        color: var(--text-parchment);
-        padding: 6px 10px;
-        font-family: "Crimson Pro", serif;
-        font-size: 0.9rem;
-      }
-
-      .tier-seal-box {
-        background: radial-gradient(
-          circle at center,
-          rgba(139, 30, 36, 0.45) 0%,
-          rgba(14, 10, 8, 0.95) 100%
-        );
-        border: 2px solid var(--gold-leaf);
-        padding: 18px 14px;
-        text-align: center;
-        box-shadow: inset 0 0 22px rgba(212, 175, 55, 0.18);
-      }
-
-      .tier-seal-label {
-        font-family: "Cinzel", serif;
-        font-size: 0.72rem;
-        color: var(--gold-leaf);
-        letter-spacing: 2.5px;
-      }
-
-      .tier-seal-code {
-        font-family: "Cinzel Decorative", serif;
-        font-size: 2.15rem;
-        font-weight: 900;
-        color: var(--gold-bright);
-        text-shadow: 0 2px 15px rgba(212, 175, 55, 0.45);
-        margin: 4px 0;
-      }
-
-      .tier-seal-title {
-        font-family: "Cinzel", serif;
-        font-weight: 700;
-        font-size: 1rem;
-        color: var(--text-parchment);
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      /* Center Column: Arcane Astrolabe Radar, Reasoning & Grimoire Spells/Abilities */
-      .radar-wrapper {
-        position: relative;
-        width: 100%;
-        max-width: 410px;
-        margin: 0 auto 16px;
-        aspect-ratio: 1 / 1;
-      }
-
-      .stat-pills-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-        margin-bottom: 22px;
-      }
-
-      .stat-mini {
-        background: var(--bg-inset);
-        border: 1px solid rgba(212, 175, 55, 0.25);
-        padding: 8px 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .stat-mini-name {
-        font-family: "Cinzel", serif;
-        font-size: 0.68rem;
-        color: var(--text-sepia);
-        letter-spacing: 0.5px;
-      }
-
-      .stat-mini-val {
-        font-family: "Cinzel Decorative", serif;
-        font-weight: 900;
-        font-size: 0.95rem;
-        color: var(--gold-bright);
-      }
-
-      .reasoning-box {
-        background: var(--bg-inset);
-        border: 1px solid rgba(212, 175, 55, 0.2);
-        border-left: 3px solid var(--gold-leaf);
-        padding: 18px;
-        margin-bottom: 18px;
-        line-height: 1.7;
-        font-size: 1.05rem;
-        color: var(--text-parchment);
-      }
-
-      .audit-box {
-        background: rgba(139, 30, 36, 0.14);
-        border: 1px solid rgba(212, 175, 55, 0.3);
-        border-left: 3px solid var(--crimson-glow);
-        padding: 14px 16px;
-        margin-bottom: 22px;
-        font-size: 0.96rem;
-        line-height: 1.55;
-        color: #e6d5c1;
-      }
-
-      .audit-box strong {
-        font-family: "Cinzel", serif;
-        font-size: 0.78rem;
-        color: var(--gold-bright);
-        letter-spacing: 1px;
-        display: block;
-        margin-bottom: 4px;
-      }
-
-      .abilities-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      .ability-tag {
-        background: rgba(139, 30, 36, 0.22);
-        border: 1px solid rgba(212, 175, 55, 0.38);
-        padding: 6px 13px;
-        font-size: 0.95rem;
-        color: var(--text-parchment);
-        display: flex;
-        align-items: center;
-        gap: 7px;
-      }
-
-      .ability-tag span {
-        color: var(--gold-bright);
-        font-size: 0.8rem;
-      }
-
-      .feats-list {
-        margin-top: 14px;
-        list-style: none;
-      }
-
-      .feats-list li {
-        padding: 10px 14px;
-        background: var(--bg-inset);
-        border-left: 2px solid var(--crimson-glow);
-        margin-bottom: 8px;
-        font-size: 0.98rem;
-        line-height: 1.5;
-        color: #e8dcc8;
-      }
-
-      /* Right Column: Full VS Battles Wiki Tier Hierarchy */
-      .tier-scale-container {
-        max-height: 840px;
-        overflow-y: auto;
-        padding-right: 6px;
-      }
-
-      .tier-scale-container::-webkit-scrollbar {
-        width: 5px;
-      }
-
-      .tier-scale-container::-webkit-scrollbar-thumb {
-        background: var(--gold-leaf);
-      }
-
-      .tier-group {
-        margin-bottom: 12px;
-        border: 1px solid rgba(212, 175, 55, 0.2);
-        background: var(--bg-inset);
-      }
-
-      .tier-group-header {
-        background: rgba(212, 175, 55, 0.12);
-        padding: 7px 11px;
-        font-family: "Cinzel", serif;
-        font-size: 0.76rem;
-        font-weight: 800;
-        color: var(--gold-bright);
-        letter-spacing: 1px;
-      }
-
-      .tier-item {
-        padding: 6px 11px;
-        font-family: "Crimson Pro", serif;
-        font-size: 0.92rem;
-        color: var(--text-sepia);
-        border-top: 1px solid rgba(212, 175, 55, 0.08);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: 0.2s;
-      }
-
-      .tier-item strong {
-        font-family: "Cinzel", serif;
-        font-size: 0.78rem;
-        color: #cbb89d;
-      }
-
-      .tier-item.active-tier {
-        background: linear-gradient(
-          90deg,
-          var(--crimson-seal),
-          rgba(212, 175, 55, 0.25)
-        );
-        color: #fff;
-        font-weight: 700;
-        border-left: 4px solid var(--gold-bright);
-        box-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
-      }
-
-      .tier-item.active-tier strong {
-        color: var(--gold-bright);
-      }
-
-      .tier-item.active-tier::after {
-        content: "✦ INSCRIBED";
-        font-family: "Cinzel", serif;
-        font-size: 0.62rem;
-        background: var(--gold-bright);
-        color: var(--bg-void);
-        padding: 2px 6px;
-        font-weight: 900;
-        letter-spacing: 0.5px;
-      }
-
-      .error-banner {
-        display: none;
-        background: rgba(139, 30, 36, 0.28);
-        border: 1px solid var(--crimson-glow);
-        color: #ffb3b8;
-        padding: 14px 18px;
-        margin-bottom: 20px;
-        font-family: "Crimson Pro", serif;
-        font-size: 1rem;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header>
       <div class="brand">
         <div class="arcane-crest">✦</div>
         <div>
-          <div class="brand-title">GRIMOIRE // VS-CODEX</div>
-          <div class="brand-sub">
-            ARCANE POWERSCALING & TIER INSCRIPTION TOME
-          </div>
+          <div class="brand-title">POWERSCALE <span class="accent-word">STANDS</span></div>
+          <div class="brand-sub">FICTIONAL TIER ARCHIVE // FEAT AUDIT</div>
         </div>
       </div>
       <div class="header-actions" id="header-controls" style="display: none">
         <div class="status-pill">
-          <span class="status-rune">❖</span>
+          <span class="status-rune">✦</span>
           <span id="active-model-badge">ORACLE BOUND</span>
         </div>
         <button class="btn-parchment" onclick="logoutKey()">
@@ -973,19 +36,19 @@
     <!-- LOGIN / API KEY GATE -->
     <section id="login-screen">
       <div class="login-card tome-frame">
-        <div class="seal-ribbon">✦ SEALED ARCHIVE // INVOCATION REQUIRED ✦</div>
-        <h1 class="login-title">UNSEAL THE GRIMOIRE</h1>
+        <div class="seal-ribbon">「 SEALED ARCHIVE 」 INVOCATION REQUIRED</div>
+        <h1 class="login-title">Open the Stand Archive</h1>
         <div class="ornate-divider">❖ ─── ✦ ─── ❖</div>
         <p class="login-desc">
-          This standalone Arcane Codex binds directly from your browser to
-          Google's Gemini Oracle to divine fictional entities, resolve shared
-          names or top-5 canonical versions across realms, chart their 6-axis
-          astral parameters, and rank them strictly by verified feats and energy
-          output.
+          Paste a free Gemini API key once and this archive turns any
+          fictional character into a stand-style showcase card: top-5
+          canonical versions, a six-axis parameter hexagon, A–E stat
+          grades, the inscribed tier and a measured speed calculation
+          drawn from their strongest canon feat.
         </p>
 
         <div class="steps-box">
-          <h3>HOW TO OBTAIN YOUR FREE GEMINI API KEY (STEP-BY-STEP)</h3>
+          <h3>HOW TO GET A FREE GEMINI API KEY</h3>
           <ol class="steps-list">
             <li>
               Open
@@ -1022,10 +85,10 @@
             type="password"
             id="api-key-input"
             class="arcane-input"
-            placeholder="Inscribe your Gemini API Key here (AIzaSy...)"
+            placeholder="Paste your Gemini API key (AIzaSy...)"
           />
           <button class="btn-arcane" onclick="saveAndLogin()">
-            UNSEAL TOME
+            ENTER ARCHIVE
           </button>
         </div>
 
@@ -1050,7 +113,7 @@
     <main id="app-workspace">
       <div class="scanner-bar tome-frame">
         <label class="scanner-label" for="char-search-input"
-          >✦ DIVINATION QUERY — INSCRIBE FICTIONAL ENTITY OR VERSION</label
+          >「 QUERY 」 FICTIONAL ENTITY OR VERSION</label
         >
         <div class="search-row">
           <input
@@ -1061,28 +124,22 @@
             onkeydown="if (event.key === 'Enter') initiateScan();"
           />
           <button class="btn-arcane" onclick="initiateScan()">
-            DIVINE & RANK
+            SHOWCASE
           </button>
         </div>
         <div class="quick-presets">
-          <span>CHRONICLE SUBJECTS:</span>
+          <span>FEATURED STANDS:</span>
+          <button class="preset-chip" onclick="quickSearch('Jotaro Kujo')">
+            Jotaro Kujo
+          </button>
+          <button class="preset-chip" onclick="quickSearch('Dio Brando')">
+            Dio Brando
+          </button>
+          <button class="preset-chip" onclick="quickSearch('Giorno Giovanna')">
+            Giorno Giovanna
+          </button>
           <button class="preset-chip" onclick="quickSearch('Superman')">
-            Superman (Top 5 Versions)
-          </button>
-          <button
-            class="preset-chip"
-            onclick="quickSearch('Asta (Black Clover)')"
-          >
-            Asta
-          </button>
-          <button class="preset-chip" onclick="quickSearch('Dante')">
-            Dante (Ambiguous Test)
-          </button>
-          <button
-            class="preset-chip"
-            onclick="quickSearch('Batman (DC Comics)')"
-          >
-            Batman
+            Superman
           </button>
           <button
             class="preset-chip"
@@ -1093,21 +150,44 @@
         </div>
       </div>
 
+      <!-- VS BATTLE -->
+      <div class="battle-bar tome-frame">
+        <div class="panel-tag">
+          <span>VS BATTLE // 1V1 SIMULATION</span>
+          <span>Feat-anchored verdict</span>
+        </div>
+        <div class="battle-inputs">
+          <input
+            id="fighter-a"
+            type="text"
+            class="arcane-input-sm"
+            placeholder="Fighter A (e.g. Jotaro Kujo)"
+            onkeydown="if (event.key === 'Enter') initiateBattle();"
+          />
+          <span class="vs-mark">VS</span>
+          <input
+            id="fighter-b"
+            type="text"
+            class="arcane-input-sm"
+            placeholder="Fighter B (e.g. Dio Brando)"
+            onkeydown="if (event.key === 'Enter') initiateBattle();"
+          />
+          <button class="btn-arcane" onclick="initiateBattle()">
+            Fight
+          </button>
+        </div>
+        <div class="speed-hint">
+          Both fighters are audited, tiered and speed-checked before a winner
+          is called. Add a version in brackets if needed.
+        </div>
+      </div>
+
       <div id="app-error" class="error-banner"></div>
 
       <!-- LOADER -->
       <div id="loader-box" class="tome-frame">
         <div class="magic-circle-spinner"></div>
-        <div
-          id="loader-text"
-          style="
-            font-family: &quot;Cinzel&quot;, serif;
-            letter-spacing: 2px;
-            color: var(--gold-bright);
-          "
-        >
-          CONSULTING THE ASTRAL ARCHIVES...
-        </div>
+        <div id="loader-text">SCANNING THE ARCHIVE...</div>
       </div>
 
       <!-- DISAMBIGUATION / TOP-5 VERSIONS PANEL -->
@@ -1146,7 +226,7 @@
           <!-- LEFT COLUMN: PORTRAIT & WAX-SEAL TIER BADGE -->
           <div class="panel-box tome-frame">
             <div class="panel-tag">
-              <span>ILLUMINATED PORTRAIT</span>
+              <span>PORTRAIT</span>
               <span id="subject-id-tag">FOLIO #I</span>
             </div>
 
@@ -1182,7 +262,7 @@
             </div>
 
             <div class="tier-seal-box">
-              <div class="tier-seal-label">VS WIKI INSCRIBED TIER</div>
+              <div class="tier-seal-label">INSCRIBED TIER</div>
               <div class="tier-seal-code" id="hero-tier-code">TIER 9-B</div>
               <div class="tier-seal-title" id="hero-tier-name">Wall level</div>
             </div>
@@ -1191,8 +271,8 @@
           <!-- CENTER COLUMN: RADAR CHART, ABILITIES & REASONING -->
           <div class="panel-box tome-frame">
             <div class="panel-tag">
-              <span>ASTRAL PARAMETER ASTROLABE</span>
-              <span>RELATIVE TIER INDEX (0–100)</span>
+              <span>PARAMETER HEXAGON</span>
+              <span>INDEX 0–100 · A–E</span>
             </div>
 
             <div class="radar-wrapper">
@@ -1202,7 +282,7 @@
             <div class="stat-pills-grid" id="stat-pills-grid"></div>
 
             <div class="panel-tag" style="margin-top: 10px">
-              <span>EMPIRICAL SCALING & TIER JUSTIFICATION</span>
+              <span>SCALING JUSTIFICATION</span>
             </div>
             <div class="reasoning-box" id="scaling-reasoning"></div>
 
@@ -1212,12 +292,12 @@
             </div>
 
             <div class="panel-tag">
-              <span>RECORDED FEATS & DIRECT ENERGY ANCHORS</span>
+              <span>FEATS & ENERGY ANCHORS</span>
             </div>
             <ul class="feats-list" id="feats-list"></ul>
 
             <div class="panel-tag" style="margin-top: 20px">
-              <span>GRIMOIRE ABILITIES, SPELLS & HAX</span>
+              <span>ABILITIES & HAX</span>
             </div>
             <div class="abilities-list" id="abilities-list"></div>
           </div>
@@ -1225,11 +305,88 @@
           <!-- RIGHT COLUMN: COMPLETE VS BATTLES WIKI TIER HIERARCHY -->
           <div class="panel-box tome-frame tier-column">
             <div class="panel-tag">
-              <span>VS WIKI TIERING HIERARCHY</span>
+              <span>TIER HIERARCHY</span>
               <span>11-C ➔ 0</span>
             </div>
             <div class="tier-scale-container" id="tier-scale-list"></div>
           </div>
+        </div>
+
+        <!-- SPEED CALCULATION -->
+        <section class="speed-panel tome-frame">
+          <div class="panel-tag">
+            <span>SPEED CALCULATION // 速度</span>
+            <span id="speed-rating" class="speed-rating">AWAITING FEAT</span>
+          </div>
+          <div class="speed-grid">
+            <div class="speed-controls">
+              <p class="speed-feat" id="speed-feat">
+                Run a showcase to auto-fill the verified speed feat, or enter
+                any distance and timeframe to calculate speed yourself.
+              </p>
+              <div class="field-row">
+                <label class="field">
+                  <span>Distance</span>
+                  <input id="speed-distance" type="number" min="0" step="any" value="1" />
+                </label>
+                <label class="field">
+                  <span>Unit</span>
+                  <select id="speed-unit">
+                    <option value="1">Meters</option>
+                    <option value="1000" selected>Kilometers</option>
+                    <option value="1609.344">Miles</option>
+                    <option value="0.3048">Feet</option>
+                    <option value="9460730472580800">Light-years</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>Time (seconds)</span>
+                  <input id="speed-time" type="number" min="0" step="any" value="1" />
+                </label>
+                <button class="btn-arcane" onclick="calculateSpeed()">
+                  Calculate
+                </button>
+              </div>
+              <div class="speed-hint">
+                Mach 1 = 343 m/s · c = 299,792,458 m/s · results update live.
+              </div>
+            </div>
+            <div class="speed-results">
+              <div class="speed-hero">
+                <strong id="speed-mach">—</strong>
+                <span>MACH</span>
+              </div>
+              <div class="speed-hint" id="speed-summary">
+                Enter a distance and timeframe to calculate speed.
+              </div>
+              <div class="speed-units" id="speed-units"></div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- VS BATTLE RESULT -->
+      <div id="battle-result">
+        <div class="battle-card tome-frame">
+          <div class="panel-tag">
+            <span>VS BATTLE VERDICT</span>
+            <span id="battle-confidence">CONFIDENCE —</span>
+          </div>
+          <div class="verdict-banner">
+            <span class="verdict-label" id="battle-label">WINNER</span>
+            <strong id="battle-winner">—</strong>
+            <span class="verdict-method" id="battle-method">—</span>
+          </div>
+          <div class="battle-grid" id="battle-grid"></div>
+          <div class="panel-tag" style="margin-top: 18px">
+            <span>WHY THEY WIN</span>
+          </div>
+          <div class="reasoning-box" id="battle-verdict-text"></div>
+          <div class="panel-tag">
+            <span>DECISIVE FACTORS</span>
+          </div>
+          <ul class="feats-list" id="battle-factors"></ul>
         </div>
       </div>
     </main>
@@ -1363,6 +520,12 @@
         if (savedKey) {
           showWorkspace(savedModel);
         }
+
+        ["speed-distance", "speed-unit", "speed-time"].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.addEventListener("input", calculateSpeed);
+        });
+        calculateSpeed();
       });
 
       function saveAndLogin() {
@@ -1582,6 +745,7 @@
         hideAlerts();
         document.getElementById("stat-sheet").style.display = "none";
         document.getElementById("disambiguation-box").style.display = "none";
+        document.getElementById("battle-result").style.display = "none";
         setLoading(true, `DIVINING ARCHIVES FOR "${query.toUpperCase()}"...`);
 
         const disambigPrompt = `
@@ -1730,6 +894,11 @@ Return ONLY valid JSON matching this exact structure:
     "range": 75,
     "hax": 88
   },
+  "speedProfile": {
+    "feat": "One sentence naming the exact canon speed feat used (e.g. 'Crossed a 20 km city in 0.4 seconds').",
+    "distanceKm": 20,
+    "timeSeconds": 0.4
+  },
   "reasoning": "A clear, grounded 2-3 paragraph explanation anchoring their tier to direct destructive/energy feats and legitimate physical scaling—explicitly avoiding circular A>B>C matchup fallacies.",
   "antiFallacyAudit": "2-3 sentences explicitly double-checking potential scaling traps for this character: separating their durability-negating hax, situational counters, or outliers from their true baseline Attack Potency and Durability.",
   "keyFeats": [
@@ -1752,6 +921,11 @@ Return ONLY valid JSON matching this exact structure:
 Rules for "stats":
 - Each of the 6 radar values (attackPotency, speed, durability, intelligence, range, hax) MUST be an integer from 15 to 100 representing their relative balance within/around their tier bracket.
 - "tierCode" MUST match one of the exact codes in the valid list.
+
+Rules for "speedProfile":
+- Give ONE concrete travel, flight, combat or reaction speed feat with both a distance and a timeframe. Convert distances to kilometers and times to seconds.
+- If the speed is only described qualitatively, derive a defensible distance/time pair from that exact scene instead of returning null.
+- Keep the numbers faithful to the feat so the speed calculation returns a meaningful, non-arbitrary result.
 `;
 
         try {
@@ -1926,18 +1100,18 @@ Rules for "stats":
         <svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
           <defs>
             <radialGradient id="bg" cx="50%" cy="40%" r="65%">
-              <stop offset="0%" stop-color="#241612"/>
-              <stop offset="100%" stop-color="#0b0807"/>
+              <stop offset="0%" stop-color="#17171f"/>
+              <stop offset="100%" stop-color="#08080b"/>
             </radialGradient>
           </defs>
           <rect width="400" height="500" fill="url(#bg)"/>
-          <circle cx="200" cy="190" r="115" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.6"/>
-          <circle cx="200" cy="190" r="88" fill="rgba(139,30,36,0.22)" stroke="#d4af37" stroke-width="2"/>
-          <polygon points="200,82 293,244 107,244" fill="none" stroke="#d4af37" stroke-width="1.2" opacity="0.45"/>
-          <polygon points="200,298 293,136 107,136" fill="none" stroke="#d4af37" stroke-width="1.2" opacity="0.45"/>
-          <text x="200" y="208" font-family="Georgia, serif" font-weight="900" font-size="48" fill="#f5d76e" text-anchor="middle">${initials}</text>
-          <text x="200" y="345" font-family="Georgia, serif" font-size="13" fill="#a8947a" text-anchor="middle" letter-spacing="2">NO VERIFIED PORTRAIT</text>
-          <text x="200" y="368" font-family="Georgia, serif" font-size="11" fill="#d4af37" text-anchor="middle" letter-spacing="1">BIND IMAGE URL BELOW</text>
+          <circle cx="200" cy="190" r="115" fill="none" stroke="#ff3b5c" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.6"/>
+          <circle cx="200" cy="190" r="88" fill="rgba(255,59,92,0.16)" stroke="#ff3b5c" stroke-width="2"/>
+          <polygon points="200,82 293,244 107,244" fill="none" stroke="#ffd83d" stroke-width="1.2" opacity="0.45"/>
+          <polygon points="200,298 293,136 107,136" fill="none" stroke="#ffd83d" stroke-width="1.2" opacity="0.45"/>
+          <text x="200" y="208" font-family="Arial, sans-serif" font-weight="900" font-size="48" fill="#ffd83d" text-anchor="middle">${initials}</text>
+          <text x="200" y="345" font-family="Arial, sans-serif" font-size="13" fill="#9a97ab" text-anchor="middle" letter-spacing="2">NO VERIFIED PORTRAIT</text>
+          <text x="200" y="368" font-family="Arial, sans-serif" font-size="11" fill="#ff3b5c" text-anchor="middle" letter-spacing="1">BIND IMAGE URL BELOW</text>
         </svg>`;
         return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
       }
@@ -1978,6 +1152,7 @@ Rules for "stats":
       }
 
       function renderStatSheet(data, portraits) {
+        applyStandPalette(data.name || data.canonicalFullName || "");
         const folioNum = toRoman(Math.floor(1 + Math.random() * 499));
         document.getElementById("subject-id-tag").textContent =
           `FOLIO ${folioNum}`;
@@ -2043,14 +1218,16 @@ Rules for "stats":
 
         const pillsGrid = document.getElementById("stat-pills-grid");
         pillsGrid.innerHTML = statEntries
-          .map(
-            (st) => `
-        <div class="stat-mini">
+          .map((st) => {
+            const value = Math.max(0, Math.min(100, Number(st.val) || 0));
+            const grade =
+              value >= 92 ? "A" : value >= 82 ? "B" : value >= 68 ? "C" : value >= 55 ? "D" : "E";
+            return `<div class="stat-mini">
           <span class="stat-mini-name">${st.label}</span>
-          <span class="stat-mini-val">${st.val}</span>
-        </div>
-      `,
-          )
+          <span class="stat-val-wrap"><span class="stat-mini-val">${st.val}</span><span class="stat-grade grade-${grade.toLowerCase()}">${grade}</span></span>
+          <span class="stat-bar"><i style="width: ${value}%"></i></span>
+        </div>`;
+          })
           .join("");
 
         renderRadarChart(statEntries);
@@ -2077,6 +1254,7 @@ Rules for "stats":
           .join("");
 
         renderTierScale(data.tierCode);
+        renderSpeedProfile(data.speedProfile);
 
         document.getElementById("stat-sheet").style.display = "block";
       }
@@ -2093,6 +1271,9 @@ Rules for "stats":
 
       function renderRadarChart(statEntries) {
         const ctx = document.getElementById("radarChart").getContext("2d");
+        const sheetStyles = getComputedStyle(document.getElementById("stat-sheet"));
+        const accent = sheetStyles.getPropertyValue("--accent").trim() || "#ff3b5c";
+        const accent2 = sheetStyles.getPropertyValue("--accent-2").trim() || "#ffd83d";
         if (radarChartInstance) {
           radarChartInstance.destroy();
         }
@@ -2103,13 +1284,13 @@ Rules for "stats":
             labels: statEntries.map((s) => s.label),
             datasets: [
               {
-                label: "ASTRAL EVALUATION",
+                label: "STAND PARAMETERS",
                 data: statEntries.map((s) => s.val),
-                backgroundColor: "rgba(139, 30, 36, 0.35)",
-                borderColor: "#f5d76e",
+                backgroundColor: hexToRgba(accent, 0.28),
+                borderColor: accent2,
                 borderWidth: 2.5,
-                pointBackgroundColor: "#f5d76e",
-                pointBorderColor: "#8b1e24",
+                pointBackgroundColor: accent2,
+                pointBorderColor: accent,
                 pointBorderWidth: 2,
                 pointRadius: 4.5,
                 pointHoverRadius: 6.5,
@@ -2128,17 +1309,17 @@ Rules for "stats":
                   display: false,
                 },
                 grid: {
-                  color: "rgba(212, 175, 55, 0.25)",
+                  color: "rgba(255, 255, 255, 0.12)",
                   lineWidth: 1,
                 },
                 angleLines: {
-                  color: "rgba(212, 175, 55, 0.32)",
+                  color: "rgba(255, 255, 255, 0.18)",
                   lineWidth: 1,
                 },
                 pointLabels: {
-                  color: "#efe5d5",
+                  color: "#eceaf2",
                   font: {
-                    family: "'Cinzel', serif",
+                    family: "'Space Grotesk', sans-serif",
                     size: 11,
                     weight: "700",
                   },
@@ -2182,6 +1363,411 @@ Rules for "stats":
             activeEl.scrollIntoView({ behavior: "smooth", block: "center" });
           }
         }, 150);
+      }
+
+      const C_LIGHT = 299792458;
+      const MACH_1 = 343;
+      const STAND_PALETTES = [
+        ["#ff3b5c", "#ffd83d"],
+        ["#a06bff", "#4df0c0"],
+        ["#00d1ff", "#ff4fa3"],
+        ["#ffe14d", "#8b5cf6"],
+        ["#37f5a5", "#ff7a38"],
+        ["#ff6ad5", "#6be3ff"],
+      ];
+
+      function paletteFor(seed) {
+        const text = String(seed || "stand");
+        let hash = 0;
+        for (let i = 0; i < text.length; i++) {
+          hash = (hash * 31 + text.charCodeAt(i)) >>> 0;
+        }
+        return STAND_PALETTES[hash % STAND_PALETTES.length];
+      }
+
+      function applyStandPalette(seed) {
+        const [accent, accent2] = paletteFor(seed);
+        const sheet = document.getElementById("stat-sheet");
+        sheet.style.setProperty("--accent", accent);
+        sheet.style.setProperty("--accent-2", accent2);
+      }
+
+      function hexToRgba(hex, alpha) {
+        const value = String(hex).replace("#", "").trim();
+        const full =
+          value.length === 3
+            ? value.split("").map((c) => c + c).join("")
+            : value.padEnd(6, "0");
+        const num = parseInt(full.slice(0, 6), 16);
+        if (isNaN(num)) return "rgba(255, 59, 92, " + alpha + ")";
+        return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
+      }
+
+      function formatNumber(n) {
+        if (!isFinite(n) || n <= 0) return "0";
+        if (n >= 1e15) return n.toExponential(2).replace("e+", "e");
+        if (n >= 1e9) return (n / 1e9).toFixed(2).replace(/\.?0+$/, "") + "B";
+        if (n >= 1e6) return (n / 1e6).toFixed(2).replace(/\.?0+$/, "") + "M";
+        if (n >= 100) return Math.round(n).toLocaleString("en-US");
+        if (n >= 1) return n.toFixed(2).replace(/\.?0+$/, "");
+        return n.toFixed(4).replace(/0+$/, "").replace(/\.$/, "");
+      }
+
+      function speedRating(mach, pctC) {
+        if (pctC >= 100) return "FTL // FASTER THAN LIGHT";
+        if (pctC >= 10) return "RELATIVISTIC+";
+        if (pctC >= 1) return "RELATIVISTIC";
+        if (mach >= 1000) return "MASSIVELY HYPERSONIC";
+        if (mach >= 100) return "HIGH HYPERSONIC";
+        if (mach >= 25) return "HYPERSONIC+";
+        if (mach >= 5) return "HYPERSONIC";
+        if (mach >= 1) return "SUPERSONIC";
+        if (mach >= 0.1) return "SUBSONIC";
+        if (mach >= 0.03) return "SUPERHUMAN";
+        return "HUMAN / ATHLETIC";
+      }
+
+      function speedUnitLabel(select) {
+        const option = select.options[select.selectedIndex];
+        return option ? option.text.toLowerCase() : "units";
+      }
+
+      function calculateSpeed() {
+        const distanceEl = document.getElementById("speed-distance");
+        const unitEl = document.getElementById("speed-unit");
+        const timeEl = document.getElementById("speed-time");
+        const machEl = document.getElementById("speed-mach");
+        const summaryEl = document.getElementById("speed-summary");
+        const ratingEl = document.getElementById("speed-rating");
+        const unitsEl = document.getElementById("speed-units");
+        if (!distanceEl || !timeEl || !unitEl || !machEl) return;
+
+        const distance = parseFloat(distanceEl.value);
+        const unit = parseFloat(unitEl.value) || 1;
+        const seconds = parseFloat(timeEl.value);
+
+        if (
+          !isFinite(distance) ||
+          !isFinite(seconds) ||
+          distance <= 0 ||
+          seconds <= 0
+        ) {
+          machEl.textContent = "—";
+          ratingEl.textContent = "AWAITING FEAT";
+          summaryEl.textContent =
+            "Enter a distance greater than zero and a timeframe greater than zero.";
+          unitsEl.innerHTML = "";
+          return;
+        }
+
+        const meters = distance * unit;
+        const mps = meters / seconds;
+        const kmh = mps * 3.6;
+        const mph = mps * 2.2369362920544;
+        const mach = mps / MACH_1;
+        const pctC = (mps / C_LIGHT) * 100;
+        const rating = speedRating(mach, pctC);
+
+        machEl.textContent = mach >= 1e6 ? mach.toExponential(2) : formatNumber(mach);
+        ratingEl.textContent = rating;
+        summaryEl.textContent =
+          formatNumber(distance) + " " + speedUnitLabel(unitEl) + " in " +
+          formatNumber(seconds) + " s → " + formatNumber(mps) + " m/s";
+
+        const pctLabel =
+          pctC >= 1e-4
+            ? formatNumber(pctC) + " % c"
+            : pctC.toExponential(2) + " % c";
+
+        const rows = [
+          ["Meters / sec", formatNumber(mps) + " m/s"],
+          ["Kilometers / hour", formatNumber(kmh) + " km/h"],
+          ["Miles / hour", formatNumber(mph) + " mph"],
+          ["Speed of light", pctLabel],
+        ];
+        unitsEl.innerHTML = rows.map((row) => `<div class="speed-row"><span>${row[0]}</span><strong>${row[1]}</strong></div>`).join("");
+      }
+
+      function renderSpeedProfile(profile) {
+        const featEl = document.getElementById("speed-feat");
+        const distanceEl = document.getElementById("speed-distance");
+        const unitEl = document.getElementById("speed-unit");
+        const timeEl = document.getElementById("speed-time");
+        if (!featEl || !distanceEl || !unitEl || !timeEl) return;
+
+        const distanceKm = Number(profile && profile.distanceKm);
+        const timeSeconds = Number(profile && profile.timeSeconds);
+
+        if (
+          !isFinite(distanceKm) ||
+          !isFinite(timeSeconds) ||
+          distanceKm <= 0 ||
+          timeSeconds <= 0
+        ) {
+          featEl.textContent =
+            "No measurable speed feat was returned for this entity. Enter any distance and timeframe below to calculate speed manually.";
+          return;
+        }
+
+        featEl.textContent =
+          profile.feat ||
+          "Canon speed feat used to calculate this measurement.";
+        distanceEl.value = distanceKm;
+        unitEl.value = "1000";
+        timeEl.value = timeSeconds;
+        calculateSpeed();
+      }
+
+      function standGrade(value) {
+        const v = Number(value) || 0;
+        if (v >= 92) return "A";
+        if (v >= 82) return "B";
+        if (v >= 68) return "C";
+        if (v >= 55) return "D";
+        return "E";
+      }
+
+      function computeSpeed(profile) {
+        if (!profile) return null;
+        const distanceKm = Number(profile.distanceKm);
+        const timeSeconds = Number(profile.timeSeconds);
+        if (
+          !isFinite(distanceKm) ||
+          !isFinite(timeSeconds) ||
+          distanceKm <= 0 ||
+          timeSeconds <= 0
+        ) {
+          return null;
+        }
+        const mps = (distanceKm * 1000) / timeSeconds;
+        const mach = mps / MACH_1;
+        const pctC = (mps / C_LIGHT) * 100;
+        return { mps: mps, mach: mach, rating: speedRating(mach, pctC) };
+      }
+
+      async function initiateBattle() {
+        const fighterA = document.getElementById("fighter-a").value.trim();
+        const fighterB = document.getElementById("fighter-b").value.trim();
+
+        if (!fighterA || !fighterB) {
+          showError("VS BATTLE: enter both fighters before starting.");
+          return;
+        }
+        if (fighterA.toLowerCase() === fighterB.toLowerCase()) {
+          showError("VS BATTLE: enter two different fighters.");
+          return;
+        }
+
+        hideAlerts();
+        document.getElementById("stat-sheet").style.display = "none";
+        document.getElementById("disambiguation-box").style.display = "none";
+        document.getElementById("battle-result").style.display = "none";
+        setLoading(
+          true,
+          `SIMULATING ${fighterA.toUpperCase()} VS ${fighterB.toUpperCase()}...`,
+        );
+
+        const validCodes = VS_TIERS.flatMap((g) =>
+          g.tiers.map((t) => `${t.code} (${t.name})`),
+        ).join(", ");
+
+        const battlePrompt = `
+You are an empirical VS Battles Wiki analyst judging a 1v1 duel between "${fighterA}" and "${fighterB}".
+
+METHODOLOGY (STRICTLY ENFORCED):
+1. NO CHAIN SCALING: compare the feats each fighter personally performed. Never use A beat B who beat C logic.
+2. SEPARATE HAX FROM RAW AP: durability negation, anti-magic, soul or conceptual attacks can decide the fight, but they must not inflate Attack Potency or Durability.
+3. Use the prominent standard canon version of each fighter unless the user named a specific version or continuity.
+4. Speed is decisive: a large speed gap means a blitz, and hax is useless if it can never land. State this explicitly.
+5. A fighter who cannot overcome the other durability with their raw AP must win via hax, outlasting, or battlefield control - otherwise they lose.
+6. Be decisive. Only return "draw" when the matchup is genuinely inconclusive.
+
+Valid Tier Codes & Names:
+${validCodes}
+
+Return ONLY valid JSON with this exact structure:
+{
+  "fighters": [
+    {
+      "side": "LEFT",
+      "name": "Fighter A real name",
+      "franchise": "Series / continuity",
+      "tierCode": "Exact code from the list above",
+      "tierName": "Exact tier title from the list above",
+      "stats": { "attackPotency": 80, "speed": 75, "durability": 70, "intelligence": 65, "range": 60, "hax": 55 },
+      "speedProfile": { "feat": "One sentence naming the canon speed feat", "distanceKm": 10, "timeSeconds": 0.5 },
+      "keyAbilities": ["ability 1", "ability 2", "ability 3", "ability 4"],
+      "keyFeat": "One direct destructive or energy feat that anchors their tier"
+    },
+    {
+      "side": "RIGHT"
+    }
+  ],
+  "result": {
+    "winner": "left" or "right" or "draw",
+    "method": "Short decisive line, e.g. Speed blitz plus durability negation",
+    "confidence": 82,
+    "reasoning": "2-3 plain paragraphs comparing tier, AP, durability, speed and hax, and naming the exact win condition.",
+    "decisiveFactors": ["factor 1", "factor 2", "factor 3"]
+  }
+}
+
+Rules:
+- "winner" must be "left", "right" or "draw". fighters[0] is left, fighters[1] is right.
+- Both fighter objects must be fully filled in, including tier, stats, speedProfile, keyAbilities and keyFeat.
+- stats values are integers from 15 to 100, relative within their tier bracket.
+- speedProfile must be a real measurable feat with distance in kilometers and time in seconds.
+- reasoning must be plain sentences, no markdown tables or bullet symbols.
+`;
+
+        try {
+          const data = await callGeminiJSON(battlePrompt);
+          setLoading(false);
+          renderBattle(data);
+        } catch (err) {
+          setLoading(false);
+          showError(`VS BATTLE FAILED: ${err.message}`);
+        }
+      }
+
+      function renderBattle(data) {
+        const fighters = Array.isArray(data.fighters)
+          ? data.fighters.slice(0, 2)
+          : [];
+        if (fighters.length < 2) {
+          throw new Error("The verdict scroll was incomplete.");
+        }
+        const result = data.result || {};
+        const winner = String(result.winner || "draw").toLowerCase();
+        const statKeys = [
+          ["AP", "attackPotency"],
+          ["SPD", "speed"],
+          ["DUR", "durability"],
+          ["INT", "intelligence"],
+          ["RNG", "range"],
+          ["HAX", "hax"],
+        ];
+
+        const grid = document.getElementById("battle-grid");
+        grid.innerHTML = fighters
+          .map((fighter, index) => {
+            const isWinner =
+              (winner === "left" && index === 0) ||
+              (winner === "right" && index === 1);
+            const palette = paletteFor(fighter.name || String(index));
+            const stats = fighter.stats || {};
+            const statCells = statKeys
+              .map((entry) => {
+                const value = Math.max(
+                  0,
+                  Math.min(100, Number(stats[entry[1]]) || 0),
+                );
+                const grade = standGrade(value);
+                return (
+                  '<div class="bstat"><span>' +
+                  entry[0] +
+                  "</span><b>" +
+                  value +
+                  '</b><i class="stat-grade grade-' +
+                  grade.toLowerCase() +
+                  '">' +
+                  grade +
+                  "</i></div>"
+                );
+              })
+              .join("");
+            const speed = computeSpeed(fighter.speedProfile);
+            const speedBlock = speed
+              ? '<div class="fighter-speed"><strong>MACH ' +
+                formatNumber(speed.mach) +
+                "</strong><em>" +
+                speed.rating +
+                "</em><small>" +
+                escapeHtml(
+                  (fighter.speedProfile && fighter.speedProfile.feat) || "",
+                ) +
+                " · " +
+                formatNumber(speed.mps) +
+                " m/s</small></div>"
+              : '<div class="fighter-speed"><strong>—</strong><em>NO MEASURABLE SPEED FEAT</em></div>';
+            const abilities = (fighter.keyAbilities || [])
+              .slice(0, 5)
+              .map((ability) => "<span>" + escapeHtml(ability) + "</span>")
+              .join("");
+
+            return (
+              '<div class="fighter' +
+              (isWinner ? " is-winner" : "") +
+              '" style="--accent: ' +
+              palette[0] +
+              "; --accent-2: " +
+              palette[1] +
+              '">' +
+              '<div class="fighter-top"><span class="fighter-tag">' +
+              (index === 0 ? "LEFT" : "RIGHT") +
+              "</span></div>" +
+              '<div class="fighter-name">' +
+              escapeHtml(fighter.name || "UNKNOWN") +
+              "</div>" +
+              '<div class="fighter-verse">' +
+              escapeHtml(fighter.franchise || "") +
+              "</div>" +
+              '<div class="fighter-tier"><span class="tier-chip">TIER ' +
+              escapeHtml(fighter.tierCode || "?") +
+              "</span> " +
+              escapeHtml(fighter.tierName || "") +
+              "</div>" +
+              '<div class="fighter-stats">' +
+              statCells +
+              "</div>" +
+              speedBlock +
+              (fighter.keyFeat
+                ? '<div class="fighter-keyfeat">KEY FEAT: ' +
+                  escapeHtml(fighter.keyFeat) +
+                  "</div>"
+                : "") +
+              '<div class="fighter-abilities">' +
+              abilities +
+              "</div>" +
+              "</div>"
+            );
+          })
+          .join('<div class="vs-divider">VS</div>');
+
+        const winnerFighter =
+          winner === "left"
+            ? fighters[0]
+            : winner === "right"
+              ? fighters[1]
+              : null;
+
+        document.getElementById("battle-label").textContent = winnerFighter
+          ? "WINNER"
+          : "DRAW";
+        document.getElementById("battle-winner").textContent = winnerFighter
+          ? winnerFighter.name || "UNKNOWN"
+          : "DEAD EVEN";
+        document.getElementById("battle-method").textContent =
+          result.method || "Feat-anchored verdict";
+        const confidence = Math.max(
+          0,
+          Math.min(100, Number(result.confidence) || 0),
+        );
+        document.getElementById("battle-confidence").textContent =
+          "CONFIDENCE " + confidence + "%";
+        document.getElementById("battle-verdict-text").innerHTML = escapeHtml(
+          result.reasoning || "",
+        ).replace(/\n/g, "<br><br>");
+        document.getElementById("battle-factors").innerHTML = (
+          result.decisiveFactors || []
+        )
+          .map((factor) => "<li>▸ " + escapeHtml(factor) + "</li>")
+          .join("");
+        document.getElementById("battle-result").style.display = "block";
+        document.getElementById("battle-result").scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
       }
 
       function setLoading(isLoading, text = "") {
