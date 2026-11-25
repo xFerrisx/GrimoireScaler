@@ -360,13 +360,14 @@
                 </button>
               </div>
               <div class="speed-hint">
-                Mach 1 = 343 m/s · c = 299,792,458 m/s · results update live.
+                Auto units: cm/s → m/s → Mach → km/s → c. Mach 1 = 343 m/s ·
+                c = 299,792,458 m/s.
               </div>
             </div>
             <div class="speed-results">
               <div class="speed-hero">
                 <strong id="speed-mach">—</strong>
-                <span>MACH</span>
+                <span id="speed-unit-label">MACH</span>
               </div>
               <div class="speed-hint" id="speed-summary">
                 Enter a distance and timeframe to calculate speed.
@@ -1461,6 +1462,43 @@ Rules for "speedProfile":
         return n.toFixed(4).replace(/0+$/, "").replace(/\.$/, "");
       }
 
+      function formatSpeedValue(value) {
+        if (!isFinite(value) || value <= 0) return "0";
+        if (value < 0.0001) return value.toExponential(2).replace("e+", "e");
+        if (value >= 1e6) return value.toExponential(2).replace("e+", "e");
+        return formatNumber(value);
+      }
+
+      // Picks whichever unit reads best for a speed, so a feat is never forced
+      // into Mach numbers when c, km/s, m/s or cm/s describe it far better.
+      function speedDisplay(mps) {
+        if (!isFinite(mps) || mps <= 0) {
+          return { value: "—", unit: "MACH", text: "—" };
+        }
+        const fractionOfLight = mps / C_LIGHT;
+        let value;
+        let unit;
+
+        if (fractionOfLight >= 0.01) {
+          value = formatSpeedValue(fractionOfLight);
+          unit = "× LIGHT SPEED";
+        } else if (mps >= 1e6) {
+          value = formatSpeedValue(mps / 1000);
+          unit = "KM/S";
+        } else if (mps >= MACH_1) {
+          value = formatSpeedValue(mps / MACH_1);
+          unit = "MACH";
+        } else if (mps >= 0.01) {
+          value = formatSpeedValue(mps);
+          unit = "M/S";
+        } else {
+          value = formatSpeedValue(mps * 100);
+          unit = "CM/S";
+        }
+
+        return { value: value, unit: unit, text: value + " " + unit };
+      }
+
       function speedRating(mach, pctC) {
         if (pctC >= 100) return "FTL // FASTER THAN LIGHT";
         if (pctC >= 10) return "RELATIVISTIC+";
@@ -1485,6 +1523,7 @@ Rules for "speedProfile":
         const unitEl = document.getElementById("speed-unit");
         const timeEl = document.getElementById("speed-time");
         const machEl = document.getElementById("speed-mach");
+        const unitLabelEl = document.getElementById("speed-unit-label");
         const summaryEl = document.getElementById("speed-summary");
         const ratingEl = document.getElementById("speed-rating");
         const unitsEl = document.getElementById("speed-units");
@@ -1501,6 +1540,7 @@ Rules for "speedProfile":
           seconds <= 0
         ) {
           machEl.textContent = "—";
+          unitLabelEl.textContent = "MACH";
           ratingEl.textContent = "AWAITING FEAT";
           summaryEl.textContent =
             "Enter a distance greater than zero and a timeframe greater than zero.";
@@ -1516,11 +1556,13 @@ Rules for "speedProfile":
         const pctC = (mps / C_LIGHT) * 100;
         const rating = speedRating(mach, pctC);
 
-        machEl.textContent = mach >= 1e6 ? mach.toExponential(2) : formatNumber(mach);
+        const display = speedDisplay(mps);
+        machEl.textContent = display.value;
+        if (unitLabelEl) unitLabelEl.textContent = display.unit;
         ratingEl.textContent = rating;
         summaryEl.textContent =
-          formatNumber(distance) + " " + speedUnitLabel(unitEl) + " in " +
-          formatNumber(seconds) + " s → " + formatNumber(mps) + " m/s";
+          formatSpeedValue(distance) + " " + speedUnitLabel(unitEl) + " in " +
+          formatSpeedValue(seconds) + " s → " + display.text;
 
         const pctLabel =
           pctC >= 1e-4
@@ -1528,9 +1570,9 @@ Rules for "speedProfile":
             : pctC.toExponential(2) + " % c";
 
         const rows = [
-          ["Meters / sec", formatNumber(mps) + " m/s"],
-          ["Kilometers / hour", formatNumber(kmh) + " km/h"],
-          ["Miles / hour", formatNumber(mph) + " mph"],
+          ["Meters / sec", formatSpeedValue(mps) + " m/s"],
+          ["Kilometers / sec", formatSpeedValue(mps / 1000) + " km/s"],
+          ["Mach", formatSpeedValue(mach) + " Mach"],
           ["Speed of light", pctLabel],
         ];
         unitsEl.innerHTML = rows.map((row) => `<div class="speed-row"><span>${row[0]}</span><strong>${row[1]}</strong></div>`).join("");
@@ -1726,8 +1768,8 @@ Rules:
               .join("");
             const speed = computeSpeed(fighter.speedProfile);
             const speedBlock = speed
-              ? '<div class="fighter-speed"><strong>MACH ' +
-                formatNumber(speed.mach) +
+              ? '<div class="fighter-speed"><strong>' +
+                speedDisplay(speed.mps).text +
                 "</strong><em>" +
                 speed.rating +
                 "</em><small>" +
@@ -1735,7 +1777,7 @@ Rules:
                   (fighter.speedProfile && fighter.speedProfile.feat) || "",
                 ) +
                 " · " +
-                formatNumber(speed.mps) +
+                formatSpeedValue(speed.mps) +
                 " m/s</small></div>"
               : '<div class="fighter-speed"><strong>—</strong><em>NO MEASURABLE SPEED FEAT</em></div>';
             const abilities = (fighter.keyAbilities || [])
