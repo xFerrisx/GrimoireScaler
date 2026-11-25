@@ -461,6 +461,21 @@ header::after {
   border-color: var(--accent);
 }
 
+.model-select-row .arcane-input-sm {
+  flex: 0 1 190px;
+  min-width: 150px;
+  padding: 8px 10px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+
+#active-model-badge {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* ---------- workspace ---------- */
 
 #app-workspace {
