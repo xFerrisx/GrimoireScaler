@@ -1793,6 +1793,65 @@ header::after {
   border: 1px solid var(--line);
 }
 
+/* character dossier */
+
+.dossier-panel {
+  margin-top: 22px;
+  padding: clamp(18px, 2.6vw, 26px);
+}
+
+.dossier-body {
+  display: grid;
+  gap: 14px;
+  font-size: 0.95rem;
+  line-height: 1.78;
+  color: #e6e6e6;
+}
+
+.dossier-body p {
+  padding-left: 18px;
+  border-left: 1px solid var(--line-soft);
+}
+
+.dossier-body p:first-child {
+  font-size: 1.02rem;
+  color: #f4f4f4;
+}
+
+.dossier-body p:first-child::first-letter {
+  float: left;
+  margin: 5px 10px 0 0;
+  font-family: var(--display);
+  font-size: 3.1rem;
+  line-height: 0.76;
+  color: var(--accent);
+}
+
+.dossier-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+}
+
+.dossier-trait {
+  padding: 5px 11px;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ededed;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+}
+
+.dossier-trait::before {
+  content: "✦ ";
+  color: var(--accent-2);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

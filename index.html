@@ -324,6 +324,22 @@
           </div>
         </div>
 
+        <!-- CHARACTER DOSSIER -->
+        <section class="dossier-panel tome-frame">
+          <div class="panel-tag">
+            <span>CHARACTER DOSSIER // 人物</span>
+            <span id="dossier-epithet">AWAITING SUBJECT</span>
+          </div>
+          <div class="dossier-body" id="char-description">
+            <p>
+              Run a showcase and the archive will describe who this character
+              is — where they come from, what they are, and what kind of person
+              they are once the tiers and numbers are set aside.
+            </p>
+          </div>
+          <div class="dossier-traits" id="char-personality"></div>
+        </section>
+
         <!-- SPEED CALCULATION -->
         <section class="speed-panel tome-frame">
           <div class="panel-tag">
@@ -933,6 +949,15 @@ Return ONLY valid JSON matching this exact structure:
   "fandomSubdomain": "Exact Fandom wiki subdomain if applicable (e.g. 'dc', 'blackclover', 'jujutsu-kaisen', 'devilmaycry', 'dragonball', 'tensura', 'naruto', 'onepiece', 'bleach', 'marvel')",
   "fandomPageTitle": "Exact page title on that Fandom wiki (e.g. 'Superman', 'Asta', 'Satoru_Gojo', 'Dante', 'Son_Goku')",
   "wikiPageTitle": "Exact English Wikipedia article title if notable there (e.g. 'Superman', 'Goku', 'Batman', 'Dante_(Devil_May_Cry)')",
+  "epithet": "Short 2-6 word identity label for this version (e.g. 'Last Son of Krypton', 'Vampire turned Stand user')",
+  "description": "3 short paragraphs of plain prose (5-7 sentences total, paragraphs separated by newlines) describing who this character is: where they come from and how they came to be, what they are and what they can do in plain terms, and what they are like as a person - outlook, code of honour or lack of one, fears, habits, contradictions. No bullet points, no stat or tier talk.",
+  "personality": [
+    "Trait 1 (2-4 words)",
+    "Trait 2",
+    "Trait 3",
+    "Trait 4",
+    "Trait 5"
+  ],
   "tierCode": "Exact code from the list above",
   "tierName": "Exact tier title from the list above",
   "stats": {
@@ -970,6 +995,11 @@ Return ONLY valid JSON matching this exact structure:
 Rules for "stats":
 - Each of the 6 radar values (attackPotency, speed, durability, intelligence, range, hax) MUST be an integer from 15 to 100 representing their relative balance within/around their tier bracket.
 - "tierCode" MUST match one of the exact codes in the valid list.
+
+Rules for "description" and "personality":
+- "description" is a character portrait in words, not a powerscaling argument: origin and identity first, then nature and abilities in plain language, then personality and motivation. Write it as prose a reader who has never heard of the character would understand.
+- Stay canon. Do not invent backstory, and keep it to THIS version of the character.
+- "personality" is 5 short uppercase-friendly trait labels describing their character (e.g. 'Stoic', 'Fiercely loyal', 'Buries guilt in jokes', 'Believes he is owed everything').
 
 Rules for "speedProfile":
 - Give ONE concrete travel, flight, combat or reaction speed feat with both a distance and a timeframe. Convert distances to kilometers and times to seconds.
@@ -1236,6 +1266,41 @@ Rules for "speedProfile":
         } else {
           altRow.style.display = "none";
           altRow.innerHTML = "";
+        }
+
+        const epithetEl = document.getElementById("dossier-epithet");
+        if (epithetEl) {
+          epithetEl.textContent =
+            data.epithet ||
+            `${data.name || "UNKNOWN"} · ${data.franchise || "UNKNOWN REALM"}`;
+        }
+
+        const descriptionEl = document.getElementById("char-description");
+        if (descriptionEl) {
+          const description = String(
+            data.description ||
+              "The archive could not recover a written dossier for this entity. Only its feats, tiers and measurements were recorded.",
+          ).trim();
+          descriptionEl.innerHTML = description
+            .split(/\n+/)
+            .map((para) => para.trim())
+            .filter(Boolean)
+            .map((para) => `<p>${escapeHtml(para)}</p>`)
+            .join("");
+        }
+
+        const personalityEl = document.getElementById("char-personality");
+        if (personalityEl) {
+          const rawTraits = Array.isArray(data.personality)
+            ? data.personality
+            : [];
+          const traits = rawTraits
+            .filter((t) => t && String(t).trim())
+            .slice(0, 6);
+          personalityEl.innerHTML = traits
+            .map((t) => `<span class="dossier-trait">${escapeHtml(t)}</span>`)
+            .join("");
+          personalityEl.style.display = traits.length ? "flex" : "none";
         }
 
         document.getElementById("char-franchise").textContent =
